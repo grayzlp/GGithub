@@ -41,4 +41,6 @@ repositories {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
+    implementation "com.jakewharton:butterknife:${versions.butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
 }
