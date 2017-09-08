@@ -1,5 +1,5 @@
 # GGithub
-**基于[Github api v3](https://developer.github.com/v3/)的客户端**
+**A client base on[Github api v3](https://developer.github.com/v3/)**
 
 
 ### Liscense
