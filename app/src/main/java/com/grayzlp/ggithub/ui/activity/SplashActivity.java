@@ -10,6 +10,12 @@ import com.grayzlp.ggithub.util.AnimUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
+/**
+ * Splash activity, also used to check the sign status. Then do different treatment for
+ * different states.
+ *
+ */
 public class SplashActivity extends Activity {
 
     @BindView(R.id.branch) TextView branch;
@@ -25,10 +31,10 @@ public class SplashActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkLogIn();
+        checkSignIn();
     }
 
-    private void checkLogIn() {
+    private void checkSignIn() {
         // TODO Fix this after complete the module of api
     }
 
