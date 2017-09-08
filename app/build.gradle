@@ -19,6 +19,8 @@ android {
         archivesBaseName = 'ggithub'
         resConfig "en"
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "GITHUB_CLIENT_ID", "\"${github_client_id}\""
+        buildConfigField "String", "GITHUB_CLIENT_SECRET", "\"${github_client_secret}\""
     }
     buildTypes {
         release {
@@ -43,4 +45,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     implementation "com.jakewharton:butterknife:${versions.butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
 }
