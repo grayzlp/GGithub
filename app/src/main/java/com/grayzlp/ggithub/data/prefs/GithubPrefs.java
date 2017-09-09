@@ -17,6 +17,7 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Storing github user state
@@ -25,11 +26,12 @@ import retrofit2.Retrofit;
 public class GithubPrefs {
 
     public static final String SIGN_IN_CALLBACK = "ggithub-auth-callback";
-    public static final String SIGN_INT_URL =
-            "https://api.github.com/authorizations/clients/?client_id="
+    public static final String SIGN_IN_URL =
+            "https://github.com/login/oauth/authorize/?client_id="
                     + BuildConfig.GITHUB_CLIENT_ID
                     + "&redirect_uri=ggithub%3A%2F%2F"
-                    + SIGN_IN_CALLBACK;
+                    + SIGN_IN_CALLBACK
+                    + "&scope=user repo";
 
     private static final String GITHUB_PREF = "GITHUB_PREF";
     private static final String KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN";
@@ -98,7 +100,7 @@ public class GithubPrefs {
     }
 
     public void signIn(Context context) {
-        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SIGN_INT_URL)));
+        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SIGN_IN_URL)));
     }
 
     public void addSignInStatusListener(GithubSignInStatusListener listener) {
@@ -141,6 +143,7 @@ public class GithubPrefs {
         api = new Retrofit.Builder()
                 .baseUrl(GithubService.ENDPOINT)
                 .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(GithubService.class);
     }

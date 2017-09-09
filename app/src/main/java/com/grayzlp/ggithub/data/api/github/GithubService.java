@@ -7,7 +7,7 @@ package com.grayzlp.ggithub.data.api.github;
 public interface GithubService {
 
     String ENDPOINT = "https://api.github.com";
-    String DATE_FORMAT = "yyyy/MM/ddTHH:mm:ssZ";
+    String DATE_FORMAT = "yyyy/MM/dd'T'HH:mm:ssZ";
     int PER_PAGE_MAX = 100;
     int PER_PAGE_DEFAULT = 30;
 

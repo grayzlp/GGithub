@@ -1,10 +1,12 @@
 package com.grayzlp.ggithub.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.grayzlp.ggithub.R;
+import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.AnimUtils;
 
 import butterknife.BindView;
@@ -31,11 +33,23 @@ public class SplashActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkSignIn();
+        branch.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkSignIn();
+            }
+        }, 800);
     }
 
     private void checkSignIn() {
-        // TODO Fix this after complete the module of api
+        GithubPrefs githubPrefs = GithubPrefs.get(this);
+        if (githubPrefs.isSignedIn()) {
+            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+        } else {
+            startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+        }
+
+        finish();
     }
 
     private void animateBranch() {
