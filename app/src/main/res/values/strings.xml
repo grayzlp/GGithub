@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GGithub</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="use_your_github_account">Use your github account.</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="use_oauth_to_sign_in">Want To Use Oauth?</string>
 </resources>
