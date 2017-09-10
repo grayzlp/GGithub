@@ -1,8 +1,8 @@
 package com.grayzlp.ggithub.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.grayzlp.ggithub.R;
@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  * different states.
  *
  */
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.branch) TextView branch;
 
@@ -44,7 +44,7 @@ public class SplashActivity extends Activity {
     private void checkSignIn() {
         GithubPrefs githubPrefs = GithubPrefs.get(this);
         if (githubPrefs.isSignedIn()) {
-            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+            startActivity(new Intent(SplashActivity.this, FeedActivity.class));
         } else {
             startActivity(new Intent(SplashActivity.this, SignInActivity.class));
         }

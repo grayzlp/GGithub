@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.data.api.AuthInterceptor;
 import com.grayzlp.ggithub.data.api.github.GithubService;
+import com.grayzlp.ggithub.data.api.github.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,12 @@ public class GithubPrefs {
 
     private static final String GITHUB_PREF = "GITHUB_PREF";
     private static final String KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN";
+    private static final String KEY_USER_ID = "KEY_UESE_ID";
+    private static final String KEY_USER_NAME = "KEY_USER_NAME";
+    private static final String KEY_USER_USERNAME = "KEY_USER_USERNAME";
+    private static final String KEY_USER_AVATAR = "KEY_USER_AVATAR";
+    private static final String KEY_USER_EMAIL = "KEY_USER_EMAIL";
+
 
     private static volatile GithubPrefs singleton;
     private final SharedPreferences prefs;
@@ -42,6 +49,11 @@ public class GithubPrefs {
 
     private String accessToken;
     private boolean isSignedIn;
+    private long userId;
+    private String userName;
+    private String userUsername;
+    private String userAvatar;
+    private String userEmail;
 
     private GithubService api;
     private List<GithubSignInStatusListener> signInStatusListeners;
@@ -63,7 +75,11 @@ public class GithubPrefs {
         accessToken = prefs.getString(KEY_ACCESS_TOKEN, null);
         isSignedIn = !TextUtils.isEmpty(accessToken);
         if (isSignedIn) {
-            // get prop
+            userId = prefs.getLong(KEY_USER_ID, 0l);
+            userName = prefs.getString(KEY_USER_NAME, null);
+            userUsername = prefs.getString(KEY_USER_USERNAME, null);
+            userAvatar = prefs.getString(KEY_USER_AVATAR, null);
+            userEmail = prefs.getString(KEY_USER_EMAIL, null);
         }
 
     }
@@ -88,6 +104,54 @@ public class GithubPrefs {
         }
     }
 
+    public void setSignedInUser(User user) {
+        if (user != null) {
+            userName = user.login;
+            userUsername = user.name;
+            userId = user.id;
+            userAvatar = user.avatar_url;
+            userEmail = user.email;
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong(KEY_USER_ID, userId);
+            editor.putString(KEY_USER_NAME, userName);
+            editor.putString(KEY_USER_USERNAME, userUsername);
+            editor.putString(KEY_USER_AVATAR, userAvatar);
+            editor.putString(KEY_USER_EMAIL, userEmail);
+            editor.apply();
+        }
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserUsername() {
+        return userUsername;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public User getUser() {
+        return new User.Builder()
+                .setId(userId)
+                .setLogin(userName)
+                .setName(userUsername)
+                .setAvatar_url(userAvatar)
+                .setEmail(userEmail)
+                .build();
+    }
+
     public GithubService getApi() {
         if (api == null) {
             createApi();
@@ -96,7 +160,24 @@ public class GithubPrefs {
     }
 
     public void signOut() {
-        // TODO
+        isSignedIn = false;
+        accessToken = null;
+        userId = 0L;
+        userName = null;
+        userUsername = null;
+        userAvatar = null;
+        userEmail = null;
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_ACCESS_TOKEN, null);
+        editor.putLong(KEY_USER_ID, 0L);
+        editor.putString(KEY_USER_NAME, null);
+        editor.putString(KEY_USER_AVATAR, null);
+        editor.putString(KEY_USER_EMAIL, null);
+        editor.apply();
+
+        createApi();
+        dispatchSignOutEvent();
     }
 
     public void signIn(Context context) {

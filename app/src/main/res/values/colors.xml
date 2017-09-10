@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- app palette -->
-    <color name="primary">#1de9b6</color>
-    <color name="primary_dark">#00b686</color>
-    <color name="accent">#6effe8</color>
+    <color name="primary">#e53935</color>
+    <color name="primary_dark">#ab000d</color>
+    <color name="accent">#ff6f60</color>
+    <!-- second primary -->
+    <color name="primary_second">#aed581</color>
+    <color name="primary_second_drak">#7da453</color>
+    <color name="primary_second_accent">#e1ffb1</color>
 
     <color name="text_primary_dark">#de000000</color> <!-- 87% -->
     <color name="text_secondary_dark">#8a000000</color> <!-- 54% -->
@@ -13,15 +17,15 @@
     <color name="text_disabled_light">#4dffffff</color> <!-- 30% -->
     <color name="ripple_light">#99ffffff</color>
     <color name="ripple_dark">@color/mid_grey</color>
-    <color name="background_light">#fafafa</color> <!-- grey 50 -->
+    <color name="background_light">#33fafafa</color> <!-- grey 50 -->
     <color name="background_lightish">#e0e0e0</color> <!-- grey 300 -->
     <color name="background_card">#ffffff</color>
-    <color name="background_dark">#ff333333</color>
-    <color name="immersive_bars">#99000000</color>
+    <color name="background_dark">#ffffff</color>
+    <color name="immersive_bars">@color/primary_dark</color>
     <color name="light_immersive_bars">#b3eeeeee</color> <!-- 70% grey 200 -->
     <color name="light_status_bar">@color/immersive_bars</color> <!-- overridden on v23+ -->
     <color name="light_nav_bar">@color/immersive_bars</color>
-    <color name="status_bar_back">#ff676767</color>
+    <color name="status_bar_back">@color/primary_dark</color>
     <color name="background_super_dark">#ff292929</color>
     <color name="scrim">#99323232</color>
     <color name="mid_grey">#40808080</color>

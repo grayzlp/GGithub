@@ -1,18 +1,22 @@
 package com.grayzlp.ggithub.ui.activity;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.api.github.AcceptInterceptor;
 import com.grayzlp.ggithub.data.api.github.GithubAuthService;
+import com.grayzlp.ggithub.data.api.github.GithubService;
 import com.grayzlp.ggithub.data.api.github.model.AccessToken;
+import com.grayzlp.ggithub.data.api.github.model.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 
 import butterknife.BindView;
@@ -25,7 +29,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SignInActivity extends Activity {
+public class SignInActivity extends AppCompatActivity {
 
     boolean isLoginFailed = false;
 
@@ -36,7 +40,11 @@ public class SignInActivity extends Activity {
     @BindView(R.id.sign_in)
     Button signIn;
 
+    Dialog loading;
+
     GithubPrefs githubPrefs;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,6 @@ public class SignInActivity extends Activity {
         ButterKnife.bind(this);
 
         githubPrefs = GithubPrefs.get(this);
-
         checkAuthCallback(getIntent());
     }
 
@@ -112,26 +119,58 @@ public class SignInActivity extends Activity {
 
 
     private void showLoading() {
-
+        if (loading == null) {
+            loading = new MaterialDialog.Builder(this)
+                    .title(R.string.loading)
+                    .content(R.string.please_wait)
+                    .progress(true, 0)
+                    .build();
+        }
+        loading.show();
     }
 
     private void showSignIn() {
-        Toast.makeText(this, "sign in", Toast.LENGTH_LONG).show();
+        final GithubService githubService = GithubPrefs.get(this).getApi();
+        final Call<User> userCall = githubService.getAuthenticatedUser();
+        userCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (!response.isSuccessful()) {
+                    showSignInFail();
+                    return;
+                }
+                githubPrefs.setSignedInUser(response.body());
+                startActivity(new Intent(SignInActivity.this, FeedActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                showSignInFail();
+            }
+        });
     }
 
 
     private void showSignInFail() {
-        Toast.makeText(this, "sign in fail", Toast.LENGTH_LONG).show();
+        if (loading.isShowing()) {
+            loading.cancel();
+        }
+        Snackbar.make(signIn, R.string.sign_in_fail, Snackbar.LENGTH_LONG);
     }
 
 
+    // TODO Fix base authenticate flow
     @OnClick(R.id.sign_in)
     public void signIn() {
-        //
+        // had not fix the compatibility of oauth and base authenticated flow. Only use oauth now.
     }
 
     boolean isLoginValid() {
         return username.length() > 0 && password.length() > 0;
     }
+
+
+
 
 }
