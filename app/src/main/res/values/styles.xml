@@ -34,7 +34,7 @@
     <!-- drawer style -->
     <style name="Widget.GGithub.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
-        <item name="color">@android:color/white</item>
+        <item name="color">@color/primary</item>
     </style>
 
     <!-- tool bar style -->
@@ -42,17 +42,19 @@
 
     <style name="Widget.GGithub.Toolbar">
         <item name="android:titleTextAppearance">@android:style/TextAppearance.Material.Widget.ActionBar.Title</item>
-        <item name="android:background">?android:colorPrimary</item>
+        <item name="android:background">@color/background_dark</item>
         <item name="android:elevation">@dimen/z_app_bar</item>
         <item name="android:theme">@style/GGithubDarkOverlay</item>
     </style>
 
     <style name="Widget.GGithub.Toolbar.FeedToolbar" parent="Widget.GGithub.Toolbar">
         <item name="background">@null</item>
-        <item name="android:theme">@android:style/ThemeOverlay.Material.Dark</item>
+        <item name="android:theme">@android:style/ThemeOverlay.Material.Light</item>
+        <item name="android:layout_margin">@dimen/spacing_normal</item>
     </style>
 
     <!-- theme overlay use in action bar -->
     <style name="GGithubDarkOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar" />
+
 
 </resources>

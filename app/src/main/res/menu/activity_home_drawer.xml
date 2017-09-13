@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/drawer_my_repo"
+        android:title="@string/my_repositories" />
+
+    <group
+        android:id="@+id/drawer_home_group"
+        android:title="@string/home_group">
+        <menu>
+            <item
+                android:id="@+id/drawer_feeds"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds2"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds3"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds4"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds5"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds6"
+                android:title="@string/news_feed" />
+
+            <item
+                android:id="@+id/drawer_feeds7"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds8"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds9"
+                android:title="@string/news_feed" />
+            <item
+                android:id="@+id/drawer_feeds10"
+                android:title="@string/news_feed" />
+        </menu>
+
+    </group>
+
+    <group
+        android:id="@+id/drawer_other_operate"
+        android:checkableBehavior="none" />
+
+
+    <group
+        android:id="@+id/drawer_app_group"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/drawer_help_feedback"
+            android:title="@string/help_feedback" />
+
+        <item
+            android:id="@+id/drawer_about"
+            android:title="@string/about" />
+    </group>
+
+
+</menu>

@@ -100,9 +100,10 @@ public class HomeActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle(R.string.news_feed);
+        actionBar.setTitle(R.string.app_name);
 
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0);
+
         drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- app palette -->
-    <color name="primary">#e53935</color>
-    <color name="primary_dark">#ab000d</color>
-    <color name="accent">#ff6f60</color>
+    <color name="primary_second">#c8e6c9</color>
+    <color name="primary_second_dark">#97b498</color>
+    <color name="accent_second_accent">#fbfffc</color>
     <!-- second primary -->
-    <color name="primary_second">#aed581</color>
-    <color name="primary_second_drak">#7da453</color>
-    <color name="primary_second_accent">#e1ffb1</color>
+    <color name="primary">#aed581</color>
+    <color name="primary_dark">#7da453</color>
+    <color name="accent">#e1ffb1</color>
+    <!--&lt;!&ndash; app palette &ndash;&gt;-->
+    <!--<color name="primary">#e53935</color>-->
+    <!--<color name="primary_dark">#ab000d</color>-->
+    <!--<color name="accent">#ff6f60</color>-->
+    <!--&lt;!&ndash; second primary &ndash;&gt;-->
+    <!--<color name="primary_second">#aed581</color>-->
+    <!--<color name="primary_second_drak">#7da453</color>-->
+    <!--<color name="primary_second_accent">#e1ffb1</color>-->
 
     <color name="text_primary_dark">#de000000</color> <!-- 87% -->
     <color name="text_secondary_dark">#8a000000</color> <!-- 54% -->
