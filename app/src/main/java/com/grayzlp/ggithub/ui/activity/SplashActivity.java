@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     private void checkSignIn() {
         GithubPrefs githubPrefs = GithubPrefs.get(this);
         if (githubPrefs.isSignedIn()) {
-            startActivity(new Intent(SplashActivity.this, FeedActivity.class));
+            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         } else {
             startActivity(new Intent(SplashActivity.this, SignInActivity.class));
         }

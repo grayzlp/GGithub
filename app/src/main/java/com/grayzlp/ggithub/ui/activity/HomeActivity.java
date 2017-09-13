@@ -24,7 +24,7 @@ import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeedActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

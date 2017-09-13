@@ -140,7 +140,7 @@ public class SignInActivity extends AppCompatActivity {
                     return;
                 }
                 githubPrefs.setSignedInUser(response.body());
-                startActivity(new Intent(SignInActivity.this, FeedActivity.class));
+                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                 finish();
             }
 
