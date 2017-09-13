@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.data.api.github;
+package com.grayzlp.ggithub.data.api;
 
 import java.io.IOException;
 

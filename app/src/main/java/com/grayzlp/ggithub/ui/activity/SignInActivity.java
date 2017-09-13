@@ -12,7 +12,7 @@ import android.widget.EditText;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.R;
-import com.grayzlp.ggithub.data.api.github.AcceptInterceptor;
+import com.grayzlp.ggithub.data.api.AcceptInterceptor;
 import com.grayzlp.ggithub.data.api.github.GithubAuthService;
 import com.grayzlp.ggithub.data.api.github.GithubService;
 import com.grayzlp.ggithub.data.api.github.model.AccessToken;

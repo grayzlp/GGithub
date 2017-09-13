@@ -3,6 +3,7 @@ package com.grayzlp.ggithub.ui.activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowInsets;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.api.github.model.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
@@ -29,10 +32,12 @@ public class FeedActivity extends AppCompatActivity {
     DrawerLayout drawer;
     @BindView(R.id.status_bar_background)
     View statusBarBackground;
-    @BindView(R.id.title_username)
+    @BindView(R.id.navigation)
+    NavigationView navigation;
+
     TextView username;
-    @BindView(R.id.title_email)
     TextView userEmail;
+    ImageView userAvatar;
 
     ActionBarDrawerToggle drawerToggle;
 
@@ -43,7 +48,7 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         ButterKnife.bind(this);
-
+        setupNavagationHeader();
         setupToolbar();
         drawer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override
@@ -59,13 +64,29 @@ public class FeedActivity extends AppCompatActivity {
         prefs = GithubPrefs.get(this);
     }
 
+    private void setupNavagationHeader() {
+        // https://stackoverflow.com/questions/33194594/navigationview-get-find-header-layout
+        View header = navigation.inflateHeaderView(R.layout.drawer_header);
+        username = (TextView) header.findViewById(R.id.title_username);
+        userEmail = (TextView) header.findViewById(R.id.title_email);
+        userAvatar = (ImageView) header.findViewById(R.id.avatar);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        preloadUser();
+
+    }
+
+    private void preloadUser() {
         User user = prefs.getUser();
 
         username.setText(user.name);
         userEmail.setText(user.email);
+        Glide.with(getApplicationContext())
+                .load(user.avatar_url)
+                .into(userAvatar);
 
     }
 
