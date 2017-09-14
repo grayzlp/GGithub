@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/drawer_my_repo"
-        android:title="@string/my_repositories" />
+    <group
+        android:id="@+id/drawer_repo_group"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/drawer_repos"
+            android:title="@string/my_repositories"
+            android:icon="@drawable/ic_repository" />
+
+    </group>
 
     <group
         android:id="@+id/drawer_home_group"
         android:title="@string/home_group">
-        <menu>
-            <item
-                android:id="@+id/drawer_feeds"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds2"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds3"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds4"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds5"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds6"
-                android:title="@string/news_feed" />
-
-            <item
-                android:id="@+id/drawer_feeds7"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds8"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds9"
-                android:title="@string/news_feed" />
-            <item
-                android:id="@+id/drawer_feeds10"
-                android:title="@string/news_feed" />
-        </menu>
+        <item
+            android:id="@+id/drawer_feeds"
+            android:title="@string/feeds"
+            android:icon="@drawable/ic_feed"/>
+        <item
+            android:id="@+id/drawer_stars"
+            android:title="@string/stars"
+            android:icon="@drawable/ic_stars"/>
+        <item
+            android:id="@+id/drawer_watch"
+            android:title="@string/watch"
+            android:icon="@drawable/ic_watchlist" />
+        <item
+            android:id="@+id/drawer_people"
+            android:title="@string/people"
+            android:icon="@drawable/ic_people"/>
+        <item
+            android:id="@+id/drawer_gists"
+            android:title="@string/gists"
+            android:icon="@drawable/ic_gists"/>
 
     </group>
 
@@ -54,11 +48,19 @@
 
         <item
             android:id="@+id/drawer_help_feedback"
-            android:title="@string/help_feedback" />
+            android:title="@string/help_feedback"
+            android:icon="@drawable/ic_help"/>
 
         <item
             android:id="@+id/drawer_about"
-            android:title="@string/about" />
+            android:title="@string/about"
+            android:icon="@drawable/ic_about"/>
+
+        <item
+            android:id="@+id/drawer_clear"
+            android:title="@string/clear_cache"
+            android:icon="@drawable/ic_clear"/>
+
     </group>
 
 
