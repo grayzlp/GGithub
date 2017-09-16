@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingStart="@dimen/spacing_normal"
     android:paddingEnd="@dimen/spacing_normal"
-    tools:context="com.grayzlp.ggithub.ui.activity.SignInActivity">
+    tools:context=".core.activity.SignInActivity">
 
     <ImageView
         android:layout_width="@dimen/logo_size"

@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.data.api.github.model;
+package com.grayzlp.ggithub.data.api.model;
 
 /**
  * Models access token when use oauth to sign in.

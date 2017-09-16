@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.ui.activity;
+package com.grayzlp.ggithub.core.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

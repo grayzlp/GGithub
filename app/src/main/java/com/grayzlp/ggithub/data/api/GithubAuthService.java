@@ -1,6 +1,6 @@
-package com.grayzlp.ggithub.data.api.github;
+package com.grayzlp.ggithub.data.api;
 
-import com.grayzlp.ggithub.data.api.github.model.AccessToken;
+import com.grayzlp.ggithub.data.api.model.AccessToken;
 
 import retrofit2.Call;
 import retrofit2.http.POST;

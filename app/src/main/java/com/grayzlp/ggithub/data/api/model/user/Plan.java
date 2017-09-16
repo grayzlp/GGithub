@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.data.api.github.model;
+package com.grayzlp.ggithub.data.api.model.user;
 
 /**
  * Models plan of user

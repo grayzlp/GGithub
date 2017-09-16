@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.ui.activity;
+package com.grayzlp.ggithub.core.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.api.AcceptInterceptor;
-import com.grayzlp.ggithub.data.api.github.GithubAuthService;
-import com.grayzlp.ggithub.data.api.github.GithubService;
-import com.grayzlp.ggithub.data.api.github.model.AccessToken;
-import com.grayzlp.ggithub.data.api.github.model.User;
+import com.grayzlp.ggithub.data.api.GithubAuthService;
+import com.grayzlp.ggithub.data.api.GithubService;
+import com.grayzlp.ggithub.data.api.model.AccessToken;
+import com.grayzlp.ggithub.data.api.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 
 import butterknife.BindView;

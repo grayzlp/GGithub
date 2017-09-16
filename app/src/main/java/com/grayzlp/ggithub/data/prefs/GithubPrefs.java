@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.data.api.AuthInterceptor;
-import com.grayzlp.ggithub.data.api.github.GithubService;
-import com.grayzlp.ggithub.data.api.github.model.User;
+import com.grayzlp.ggithub.data.api.GithubService;
+import com.grayzlp.ggithub.data.api.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
