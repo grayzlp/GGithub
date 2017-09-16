@@ -21,6 +21,7 @@ android {
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "GITHUB_CLIENT_ID", "\"${github_client_id}\""
         buildConfigField "String", "GITHUB_CLIENT_SECRET", "\"${github_client_secret}\""
+        buildConfigField "String", "GITHUB_CLIENT_CALLBACK", "\"${github_client_callback}\""
     }
     buildTypes {
         release {
