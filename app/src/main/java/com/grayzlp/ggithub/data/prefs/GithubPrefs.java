@@ -30,8 +30,8 @@ public class GithubPrefs {
     public static final String SIGN_IN_URL =
             "https://github.com/login/oauth/authorize/?client_id="
                     + BuildConfig.GITHUB_CLIENT_ID
-                    + "&redirect_uri=ggithub%3A%2F%2F"
-                    + SIGN_IN_CALLBACK
+                    + "&redirect_uri="
+                    + BuildConfig.GITHUB_CLIENT_CALLBACK
                     + "&scope=user repo";
 
     private static final String GITHUB_PREF = "GITHUB_PREF";
