@@ -15,9 +15,9 @@
         android:id="@+id/drawer_home_group"
         android:title="@string/home_group">
         <item
-            android:id="@+id/drawer_feeds"
-            android:title="@string/feeds"
-            android:icon="@drawable/ic_feed"/>
+            android:id="@+id/drawer_events"
+            android:title="@string/events"
+            android:icon="@drawable/ic_events"/>
         <item
             android:id="@+id/drawer_stars"
             android:title="@string/stars"

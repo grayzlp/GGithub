@@ -19,5 +19,6 @@ public class BaseEvent {
     public Actor actor;
     public Organization org;
     public Date create_at;
-    public int id;
+    public long id;
+
 }

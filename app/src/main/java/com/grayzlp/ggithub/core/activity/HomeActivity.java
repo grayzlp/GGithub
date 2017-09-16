@@ -1,16 +1,21 @@
 package com.grayzlp.ggithub.core.activity;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseIntArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowInsets;
@@ -20,6 +25,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.grayzlp.ggithub.R;
+import com.grayzlp.ggithub.core.event.EventFragment;
+import com.grayzlp.ggithub.core.event.EventPresenter;
 import com.grayzlp.ggithub.data.api.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 
@@ -64,10 +71,12 @@ public class HomeActivity extends AppCompatActivity {
         prefs = GithubPrefs.get(this);
     }
 
+
     private void setupViewPager() {
         tab.setupWithViewPager(contentPager, true);
-
-
+        contentPager.setAdapter(
+                new HomeContentAdapter(getSupportFragmentManager(), this));
+        contentPager.setOffscreenPageLimit(HomeContentAdapter.PAGE_COUNT);
     }
 
     private void setupStatusBar() {
@@ -146,4 +155,58 @@ public class HomeActivity extends AppCompatActivity {
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 
     }
+
+    public static class HomeContentAdapter extends FragmentStatePagerAdapter {
+
+        static final int PAGE_EVENT = 0;
+        static final int PAGE_STARS = 1;
+        static final int PAGE_WATCH = 2;
+        static final int PAGE_PEOPLE = 3;
+        static final int PAGE_GIST = 4;
+
+
+
+        public Context mContext;
+
+        static SparseIntArray PAGE_TITLE = new SparseIntArray(5);
+
+        static {
+            PAGE_TITLE.append(PAGE_EVENT, R.string.events);
+            PAGE_TITLE.append(PAGE_STARS, R.string.stars);
+            PAGE_TITLE.append(PAGE_WATCH, R.string.watch);
+            PAGE_TITLE.append(PAGE_PEOPLE, R.string.people);
+            PAGE_TITLE.append(PAGE_GIST, R.string.gists);
+        }
+
+        static final int PAGE_COUNT = PAGE_TITLE.size();
+
+        public HomeContentAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            mContext = context;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case PAGE_EVENT:
+                    EventFragment eventFragment = EventFragment.newInstance();
+                    EventPresenter presenter = new EventPresenter(eventFragment, mContext);
+                    eventFragment.setPresenter(presenter);
+                    return eventFragment;
+                default:
+                    return new Fragment();
+            }
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mContext.getResources().getString(PAGE_TITLE.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_TITLE.size();
+        }
+    }
+
 }
