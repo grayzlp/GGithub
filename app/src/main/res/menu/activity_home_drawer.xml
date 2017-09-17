@@ -13,7 +13,8 @@
 
     <group
         android:id="@+id/drawer_home_group"
-        android:title="@string/home_group">
+        android:title="@string/home_group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_events"
             android:title="@string/events"
@@ -39,7 +40,23 @@
 
     <group
         android:id="@+id/drawer_other_operate"
-        android:checkableBehavior="none" />
+        android:checkableBehavior="none" >
+
+        <item
+            android:id="@+id/drawer_sign_out"
+            android:title="@string/sign_out"
+            android:icon="@drawable/ic_sign_out"/>
+
+        <item android:id="@+id/drawer_settings"
+            android:title="@string/settings"
+            android:icon="@drawable/ic_settings" />
+
+        <item
+            android:id="@+id/drawer_clear"
+            android:title="@string/clear_cache"
+            android:icon="@drawable/ic_clear"/>
+
+    </group>
 
 
     <group
@@ -56,10 +73,6 @@
             android:title="@string/about"
             android:icon="@drawable/ic_about"/>
 
-        <item
-            android:id="@+id/drawer_clear"
-            android:title="@string/clear_cache"
-            android:icon="@drawable/ic_clear"/>
 
     </group>
 

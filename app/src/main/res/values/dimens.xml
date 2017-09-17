@@ -14,9 +14,9 @@
     <dimen name="z_app_bar">4dp</dimen>
 
 
-    <!-- Sign in layout -->
     <dimen name="logo_size">128dp</dimen>
-    <dimen name="avatar_size">96dp</dimen>
+    <dimen name="avatar_size_large">72dp</dimen>
+    <dimen name="avatar_size_normal">48dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
 
 

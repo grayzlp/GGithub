@@ -1,8 +1,10 @@
 package com.grayzlp.ggithub.core.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -23,17 +25,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.core.event.EventFragment;
 import com.grayzlp.ggithub.core.event.EventPresenter;
 import com.grayzlp.ggithub.data.api.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
+import com.grayzlp.ggithub.util.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG = LogUtils.makeLogTag("HomeActivity");
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -64,11 +73,64 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        setupNavigationHeader();
+        setupNavigation();
+        setupDrawer();
         setupToolbar();
         setupStatusBar();
         setupViewPager();
         prefs = GithubPrefs.get(this);
+    }
+
+    private void setupDrawer() {
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.drawer_events:
+                    case R.id.drawer_stars:
+                    case R.id.drawer_watch:
+                    case R.id.drawer_people:
+                    case R.id.drawer_gists:
+                        selectPageByMenu(item);
+                        break;
+                    case R.id.drawer_sign_out:
+                        drawer.closeDrawers();
+                        signOut();
+
+                }
+                return true;
+            }
+        });
+    }
+
+    private void signOut() {
+        new MaterialDialog.Builder(this)
+                .content(R.string.sign_out_check)
+                .positiveText(R.string.sign_out)
+                .negativeText(R.string.cancel)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        prefs.signOut();
+                        startActivity(new Intent(HomeActivity.this, SignInActivity.class));
+                        finish();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.cancel();
+                    }
+                })
+                .build()
+                .show();
+    }
+
+    public void selectPageByMenu(MenuItem item) {
+        int position = MenuPagerMapHolder.MENU_PAGER_MAP.get(item.getItemId());
+        contentPager.setCurrentItem(position);
+        item.setChecked(true);
+        drawer.closeDrawers();
     }
 
 
@@ -77,6 +139,23 @@ public class HomeActivity extends AppCompatActivity {
         contentPager.setAdapter(
                 new HomeContentAdapter(getSupportFragmentManager(), this));
         contentPager.setOffscreenPageLimit(HomeContentAdapter.PAGE_COUNT);
+        contentPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                int itemId = MenuPagerMapHolder.MENU_PAGER_MAP.inverse().get(position);
+                navigation.setCheckedItem(itemId);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void setupStatusBar() {
@@ -93,12 +172,14 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void setupNavigationHeader() {
+    private void setupNavigation() {
         // https://stackoverflow.com/questions/33194594/navigationview-get-find-header-layout
         View header = navigation.inflateHeaderView(R.layout.drawer_header);
         username = (TextView) header.findViewById(R.id.title_username);
         userEmail = (TextView) header.findViewById(R.id.title_email);
         userAvatar = (ImageView) header.findViewById(R.id.avatar);
+
+        navigation.setCheckedItem(R.id.drawer_events);
     }
 
     @Override
@@ -156,6 +237,21 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public static class MenuPagerMapHolder {
+
+        static BiMap<Integer, Integer> MENU_PAGER_MAP =
+                HashBiMap.create(HomeContentAdapter.PAGE_COUNT);
+
+        static {
+            MENU_PAGER_MAP.put(R.id.drawer_events, HomeContentAdapter.PAGE_EVENT);
+            MENU_PAGER_MAP.put(R.id.drawer_stars, HomeContentAdapter.PAGE_STARS);
+            MENU_PAGER_MAP.put(R.id.drawer_watch, HomeContentAdapter.PAGE_WATCH);
+            MENU_PAGER_MAP.put(R.id.drawer_people, HomeContentAdapter.PAGE_PEOPLE);
+            MENU_PAGER_MAP.put(R.id.drawer_gists, HomeContentAdapter.PAGE_GIST);
+        }
+
+    }
+
     public static class HomeContentAdapter extends FragmentStatePagerAdapter {
 
         static final int PAGE_EVENT = 0;
@@ -163,7 +259,6 @@ public class HomeActivity extends AppCompatActivity {
         static final int PAGE_WATCH = 2;
         static final int PAGE_PEOPLE = 3;
         static final int PAGE_GIST = 4;
-
 
 
         public Context mContext;
@@ -187,7 +282,7 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case PAGE_EVENT:
                     EventFragment eventFragment = EventFragment.newInstance();
                     EventPresenter presenter = new EventPresenter(eventFragment, mContext);

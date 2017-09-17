@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +28,19 @@ public class EventFragment extends Fragment implements EventContract.View{
 
     EventContract.Presenter mPresenter;
 
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefresh;
     @BindView(R.id.events_list)
     RecyclerView mEventsList;
     @BindView(R.id.loading)
     ProgressBar mLoading;
     @BindView(R.id.error)
     ImageView mErrorView;
+
+    private boolean mRefreshing;
+    private LayoutInflater mInflater;
+
+    EventAdapter mAdapter;
 
 
     public EventFragment(){
@@ -45,6 +54,7 @@ public class EventFragment extends Fragment implements EventContract.View{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mInflater = inflater;
         View root = inflater.inflate(R.layout.fragment_event, container, false);
         ButterKnife.bind(this, root);
         return root;
@@ -53,6 +63,18 @@ public class EventFragment extends Fragment implements EventContract.View{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.loadEvents();
+                mRefresh.setRefreshing(false);
+            }
+        });
+        mAdapter = new EventAdapter(getActivity(), null, mInflater);
+        mEventsList.setAdapter(mAdapter);
+        mEventsList.setHasFixedSize(true);
+        mEventsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
         mPresenter.loadEvents();
     }
 
@@ -63,12 +85,13 @@ public class EventFragment extends Fragment implements EventContract.View{
 
     @Override
     public void showLoadingIndicator(boolean active) {
-
+        mLoading.setVisibility(active ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void showLoadingError() {
-
+        mLoading.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -79,6 +102,10 @@ public class EventFragment extends Fragment implements EventContract.View{
     @Override
     public void showEvents(BaseEvent[] events) {
         LogUtils.LOGD(TAG, "ShowEvent: length:" + events.length);
+        mLoading.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+        mAdapter.swapItem(events);
+        mEventsList.setVisibility(View.VISIBLE);
     }
 
     @Override
