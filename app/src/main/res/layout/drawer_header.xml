@@ -7,7 +7,7 @@
     android:paddingStart="@dimen/padding_normal"
     android:paddingTop="@dimen/status_bar_height">
 
-    <ImageView
+    <com.grayzlp.ggithub.ui.widget.CircularImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/avatar_size_large"
         android:layout_height="@dimen/avatar_size_large"
