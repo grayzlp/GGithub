@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- app palette -->
+    <color name="primary">#00897b</color>
+    <color name="primary_dark">#005b4f</color>
+    <color name="accent">#4ebaaa</color>
+    <!-- second primary -->
     <color name="primary_second">#c8e6c9</color>
     <color name="primary_second_dark">#97b498</color>
     <color name="accent_second_accent">#fbfffc</color>
-    <!-- second primary -->
-    <color name="primary">#aed581</color>
-    <color name="primary_dark">#7da453</color>
-    <color name="accent">#e1ffb1</color>
+
     <!--&lt;!&ndash; app palette &ndash;&gt;-->
     <!--<color name="primary">#e53935</color>-->
     <!--<color name="primary_dark">#ab000d</color>-->
