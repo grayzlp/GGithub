@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -36,6 +38,7 @@ public class EventFragment extends Fragment implements EventContract.View{
     ProgressBar mLoading;
     @BindView(R.id.error)
     ImageView mErrorView;
+
 
     private boolean mRefreshing;
     private LayoutInflater mInflater;
@@ -67,14 +70,8 @@ public class EventFragment extends Fragment implements EventContract.View{
             @Override
             public void onRefresh() {
                 mPresenter.loadEvents();
-                mRefresh.setRefreshing(false);
             }
         });
-        mAdapter = new EventAdapter(getActivity(), null, mInflater);
-        mEventsList.setAdapter(mAdapter);
-        mEventsList.setHasFixedSize(true);
-        mEventsList.setLayoutManager(new LinearLayoutManager(getContext()));
-
         mPresenter.loadEvents();
     }
 
@@ -85,7 +82,7 @@ public class EventFragment extends Fragment implements EventContract.View{
 
     @Override
     public void showLoadingIndicator(boolean active) {
-        mLoading.setVisibility(active ? View.VISIBLE : View.GONE);
+        mRefresh.setRefreshing(active);
     }
 
     @Override
@@ -101,12 +98,31 @@ public class EventFragment extends Fragment implements EventContract.View{
 
     @Override
     public void showEvents(BaseEvent[] events) {
-        LogUtils.LOGD(TAG, "ShowEvent: length:" + events.length);
         mLoading.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
-        mAdapter.swapItem(events);
         mEventsList.setVisibility(View.VISIBLE);
+
+        if (mAdapter == null) {
+            mAdapter = new EventAdapter(getActivity(), events, mInflater);
+            mEventsList.setAdapter(mAdapter);
+            mEventsList.setHasFixedSize(true);
+            mEventsList.setLayoutManager(new LinearLayoutManager(getContext()));
+            runLayoutAnimation();
+        } else {
+            mAdapter.swapItem(events);
+        }
+
     }
+
+    public void runLayoutAnimation() {
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_list_enter);
+
+        mEventsList.setLayoutAnimation(controller);
+        mEventsList.getAdapter().notifyDataSetChanged();
+        mEventsList.scheduleLayoutAnimation();
+    }
+
 
     @Override
     public void showEventActor() {

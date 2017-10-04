@@ -35,6 +35,18 @@
         <item name="android:textColor">@color/text_tertiary_dark</item>
     </style>
 
+    <style name="TextAppearance.Accent" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:textColor">@color/text_primary_dark</item>
+    </style>
+
+    <style name="TextAppearance.Normal" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:textColor">@color/text_secondary_dark</item>
+    </style>
+
+    <style name="TextAppearance.Detail" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:textColor">@color/text_tertiary_dark</item>
+    </style>
+
     <!-- drawer style -->
     <style name="Widget.GGithub.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>

@@ -1,11 +1,15 @@
 package com.grayzlp.ggithub.core.event;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +47,16 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        final Context context = recyclerView.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_list_enter);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+
 //    interface EventItemListener {
 //        void onAvatarClick(BaseEvent event);
 //        void onActorClick(BaseEvent event);
@@ -67,7 +81,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .into(eventHolder.avatar);
         eventHolder.actor.setText(event.actor.login);
         eventHolder.action.setText(event.type);
-        eventHolder.createAt.setText(event.created_at.toString());
+        eventHolder.createAt.setText(DateUtils.getRelativeTimeSpanString(event.created_at.getTime(),
+                System.currentTimeMillis(),
+                DateUtils.SECOND_IN_MILLIS)
+                .toString().toLowerCase());
         eventHolder.detail.setText("Faker detail");
 
         if (event instanceof WatchEvent) {
