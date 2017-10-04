@@ -1,6 +1,8 @@
 package com.grayzlp.ggithub.data.api.model.event;
 
 import com.google.gson.annotations.SerializedName;
+import com.grayzlp.ggithub.data.api.model.common.Organization;
+import com.grayzlp.ggithub.data.api.model.repo.Repository;
 
 import java.util.Date;
 
@@ -20,5 +22,4 @@ public class BaseEvent {
     public Organization org;
     public Date created_at;
     public long id;
-
 }

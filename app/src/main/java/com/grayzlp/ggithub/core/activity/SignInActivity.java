@@ -169,8 +169,4 @@ public class SignInActivity extends AppCompatActivity {
     boolean isLoginValid() {
         return username.length() > 0 && password.length() > 0;
     }
-
-
-
-
 }

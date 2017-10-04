@@ -11,6 +11,8 @@ import com.google.gson.GsonBuilder;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.data.api.AuthInterceptor;
 import com.grayzlp.ggithub.data.api.GithubService;
+import com.grayzlp.ggithub.data.api.model.event.BaseEvent;
+import com.grayzlp.ggithub.data.api.model.event.inheritance.BaseEventDeserializer;
 import com.grayzlp.ggithub.data.api.model.user.User;
 
 import java.util.ArrayList;
@@ -220,11 +222,12 @@ public class GithubPrefs {
                 .build();
         final Gson gson = new GsonBuilder()
                 .setDateFormat(GithubService.DATE_FORMAT)
+                .registerTypeAdapter(BaseEvent.class, new BaseEventDeserializer())
                 .create();
         api = new Retrofit.Builder()
                 .baseUrl(GithubService.ENDPOINT)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(GithubService.class);
     }

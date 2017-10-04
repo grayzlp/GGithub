@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.api.model.event.BaseEvent;
+import com.grayzlp.ggithub.data.api.model.event.inheritance.WatchEvent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +69,12 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         eventHolder.action.setText(event.type);
         eventHolder.createAt.setText(event.created_at.toString());
         eventHolder.detail.setText("Faker detail");
+
+        if (event instanceof WatchEvent) {
+            WatchEvent we = (WatchEvent) event;
+            eventHolder.detail.setText(we.actor.login + " " + we.payload.action + " " + we.repo.name);
+        }
+
     }
 
     @Override
