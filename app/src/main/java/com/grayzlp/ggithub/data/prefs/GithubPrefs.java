@@ -11,9 +11,9 @@ import com.google.gson.GsonBuilder;
 import com.grayzlp.ggithub.BuildConfig;
 import com.grayzlp.ggithub.data.api.AuthInterceptor;
 import com.grayzlp.ggithub.data.api.GithubService;
-import com.grayzlp.ggithub.data.api.model.event.BaseEvent;
-import com.grayzlp.ggithub.data.api.model.event.inheritance.BaseEventDeserializer;
-import com.grayzlp.ggithub.data.api.model.user.User;
+import com.grayzlp.ggithub.data.model.event.BaseEvent;
+import com.grayzlp.ggithub.data.model.event.inheritance.BaseEventDeserializer;
+import com.grayzlp.ggithub.data.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

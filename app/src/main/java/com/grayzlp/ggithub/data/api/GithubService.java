@@ -1,8 +1,8 @@
 package com.grayzlp.ggithub.data.api;
 
-import com.grayzlp.ggithub.data.api.model.event.BaseEvent;
-import com.grayzlp.ggithub.data.api.model.feed.Feeds;
-import com.grayzlp.ggithub.data.api.model.user.User;
+import com.grayzlp.ggithub.data.model.event.BaseEvent;
+import com.grayzlp.ggithub.data.model.feed.Feeds;
+import com.grayzlp.ggithub.data.model.user.User;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

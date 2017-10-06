@@ -62,7 +62,5 @@ public class SplashActivity extends AppCompatActivity {
                 .setStartDelay(300)
                 .setDuration(500)
                 .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(this));
-
-
     }
 }

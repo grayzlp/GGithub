@@ -15,8 +15,8 @@ import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.api.AcceptInterceptor;
 import com.grayzlp.ggithub.data.api.GithubAuthService;
 import com.grayzlp.ggithub.data.api.GithubService;
-import com.grayzlp.ggithub.data.api.model.AccessToken;
-import com.grayzlp.ggithub.data.api.model.user.User;
+import com.grayzlp.ggithub.data.model.AccessToken;
+import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 
 import butterknife.BindView;

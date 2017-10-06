@@ -31,9 +31,9 @@ import com.bumptech.glide.Glide;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.grayzlp.ggithub.R;
-import com.grayzlp.ggithub.core.event.EventFragment;
-import com.grayzlp.ggithub.core.event.EventPresenter;
-import com.grayzlp.ggithub.data.api.model.user.User;
+import com.grayzlp.ggithub.core.module.event.EventFragment;
+import com.grayzlp.ggithub.core.module.event.EventPresenter;
+import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.LogUtils;
 
