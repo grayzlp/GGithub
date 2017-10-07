@@ -16,6 +16,9 @@ import com.grayzlp.ggithub.data.repo.event.EventsDataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.grayzlp.ggithub.data.local.events.EventsPersistenceContract.EventEntry;
 
@@ -23,28 +26,18 @@ import static com.grayzlp.ggithub.data.local.events.EventsPersistenceContract.Ev
  * Concrete implementation of data source as a db.
  */
 
+@Singleton
 public class EventsLocalDataSource implements EventsDataSource {
 
     private static EventsLocalDataSource INSTANCE;
 
     private EventsDbHelper mDbHelper;
 
-    private EventsLocalDataSource(@NonNull Context context) {
+    @Inject
+    public EventsLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
         mDbHelper = new EventsDbHelper(context);
     }
-
-    public static EventsLocalDataSource getInstance(@NonNull Context context) {
-        if (INSTANCE == null) {
-            synchronized (EventsLocalDataSource.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new EventsLocalDataSource(context);
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
 
     @Override
     public void getEvents(@NonNull LoadEventsCallback callback) {

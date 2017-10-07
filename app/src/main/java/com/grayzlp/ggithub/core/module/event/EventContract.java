@@ -33,5 +33,9 @@ public class EventContract {
 
         void openEventDetail(BaseEvent event);
 
+        void takeView(EventContract.View view);
+
+        void dropView();
+
     }
 }

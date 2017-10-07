@@ -1,20 +1,24 @@
 package com.grayzlp.ggithub.data.repo.event;
 
 import android.support.annotation.NonNull;
+
+import com.grayzlp.ggithub.data.Local;
+import com.grayzlp.ggithub.data.Remote;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Concrete implementation to load events to from the data sources into a cache.
  */
-
+@Singleton
 public class EventsRepository implements EventsDataSource {
-
-    private static EventsRepository INSTANCE = null;
 
     private final EventsDataSource mEventsRemoteDataSource;
 
@@ -24,25 +28,12 @@ public class EventsRepository implements EventsDataSource {
 
     private List<BaseEvent> mCachedEvents;
 
-    private EventsRepository(@NonNull EventsDataSource remote,
-                             @NonNull EventsDataSource local) {
+    @Inject
+    public EventsRepository(@Remote EventsDataSource remote,
+                             @Local EventsDataSource local) {
         mEventsRemoteDataSource = remote;
         mEventsLocalDataSource = local;
     }
-
-    public static EventsRepository getInstance(EventsDataSource remote,
-                                               EventsDataSource local) {
-        if (INSTANCE == null) {
-            synchronized (EventsRepository.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new EventsRepository(remote, local);
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-
 
     @Override
     public void getEvents(@NonNull final LoadEventsCallback callback) {

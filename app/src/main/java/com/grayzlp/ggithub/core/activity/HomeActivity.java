@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.view.MenuItem;
@@ -31,16 +30,18 @@ import com.bumptech.glide.Glide;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.grayzlp.ggithub.R;
-import com.grayzlp.ggithub.core.module.event.EventFragment;
-import com.grayzlp.ggithub.core.module.event.EventPresenter;
+import com.grayzlp.ggithub.core.module.event.EventsFragment;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.LogUtils;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends DaggerAppCompatActivity {
 
     private static final String TAG = LogUtils.makeLogTag("HomeActivity");
 
@@ -66,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
 
     GithubPrefs prefs;
 
+    @Inject EventsFragment mEventFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +138,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         tab.setupWithViewPager(contentPager, true);
-        contentPager.setAdapter(
-                new HomeContentAdapter(getSupportFragmentManager(), this));
+        contentPager.setAdapter(new HomeContentAdapter(getSupportFragmentManager(), this, mEventFragment));
         contentPager.setOffscreenPageLimit(HomeContentAdapter.PAGE_COUNT);
         contentPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -275,19 +276,22 @@ public class HomeActivity extends AppCompatActivity {
 
         static final int PAGE_COUNT = PAGE_TITLE.size();
 
-        public HomeContentAdapter(FragmentManager fm, Context context) {
+//        @Inject
+//        Lazy<EventsFragment> mEventsFragmentProvider;
+        EventsFragment mEventsFragment;
+
+        @Inject
+        public HomeContentAdapter(FragmentManager fm, Context context, EventsFragment fragment) {
             super(fm);
             mContext = context;
+            mEventsFragment = fragment;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case PAGE_EVENT:
-                    EventFragment eventFragment = EventFragment.newInstance();
-                    EventPresenter presenter = new EventPresenter(eventFragment, mContext);
-                    eventFragment.setPresenter(presenter);
-                    return eventFragment;
+                    return mEventsFragment;
                 default:
                     return new Fragment();
             }

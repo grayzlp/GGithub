@@ -1,37 +1,30 @@
 package com.grayzlp.ggithub.core.module.event;
 
 
-import android.content.Context;
-
-import com.grayzlp.ggithub.data.local.events.EventsLocalDataSource;
+import com.google.common.base.Preconditions;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
-import com.grayzlp.ggithub.data.prefs.GithubPrefs;
-import com.grayzlp.ggithub.data.remote.event.EventsRemoteDataSource;
 import com.grayzlp.ggithub.data.repo.event.EventsDataSource;
 import com.grayzlp.ggithub.data.repo.event.EventsRepository;
+import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.util.LogUtils;
 
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.inject.Inject;
+
 import static com.grayzlp.ggithub.util.LogUtils.makeLogTag;
 
-public class EventPresenter implements EventContract.Presenter {
+@ActivityScoped
+public class EventsPresenter implements EventContract.Presenter {
 
-    private static final String TAG = makeLogTag("EventPresenter");
+    private static final String TAG = makeLogTag("EventsPresenter");
 
     private EventContract.View mEventView;
-    private GithubPrefs mGithubPrefs;
-    private EventsRepository mRepository;
+    private final EventsRepository mEventsRepository;
 
-    public EventPresenter(EventContract.View eventView, Context context) {
-        this.mEventView = checkNotNull(eventView);
-        checkNotNull(context);
-        mGithubPrefs = GithubPrefs.get(context);
-        mEventView.setPresenter(this);
-        mRepository = EventsRepository.getInstance(
-                EventsRemoteDataSource.getInstance(mGithubPrefs),
-                EventsLocalDataSource.getInstance(context));
+    @Inject
+    public EventsPresenter(EventsRepository eventsRepository) {
+        mEventsRepository =  eventsRepository;
     }
 
     @Override
@@ -39,9 +32,9 @@ public class EventPresenter implements EventContract.Presenter {
         LogUtils.LOGD(TAG, "Load events start");
         mEventView.showLoadingIndicator(true);
         if (forceUpdate) {
-            mRepository.refreshTasks();
+            mEventsRepository.refreshTasks();
         }
-        mRepository.getEvents(new EventsDataSource.LoadEventsCallback() {
+        mEventsRepository.getEvents(new EventsDataSource.LoadEventsCallback() {
             @Override
             public void onEventsLoaded(List<BaseEvent> events) {
                 mEventView.showLoadingIndicator(false);
@@ -64,5 +57,16 @@ public class EventPresenter implements EventContract.Presenter {
     @Override
     public void openEventDetail(BaseEvent event) {
         mEventView.showEventDetail();
+    }
+
+    @Override
+    public void takeView(EventContract.View view) {
+        mEventView = Preconditions.checkNotNull(view);
+        loadEvents(false);
+    }
+
+    @Override
+    public void dropView() {
+        mEventView = null;
     }
 }

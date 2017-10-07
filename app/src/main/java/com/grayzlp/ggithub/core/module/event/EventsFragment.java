@@ -4,7 +4,6 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,19 +17,25 @@ import android.widget.ProgressBar;
 
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
+import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.util.LogUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerFragment;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class EventFragment extends Fragment implements EventContract.View{
+@ActivityScoped
+public class EventsFragment extends DaggerFragment implements EventContract.View{
 
-    private static final String TAG = LogUtils.makeLogTag("EventFragment");
+    private static final String TAG = LogUtils.makeLogTag("EventsFragment");
 
+    @Inject
     EventContract.Presenter mPresenter;
 
     @BindView(R.id.refresh)
@@ -50,13 +55,9 @@ public class EventFragment extends Fragment implements EventContract.View{
 
     EventAdapter mAdapter;
 
-
-    public EventFragment(){
+    @Inject
+    public EventsFragment(){
         // no-op
-    }
-
-    public static EventFragment newInstance(){
-        return new EventFragment();
     }
 
     @Nullable
@@ -68,6 +69,19 @@ public class EventFragment extends Fragment implements EventContract.View{
         return root;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        mPresenter.dropView();
+        super.onDestroy();
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -77,7 +91,6 @@ public class EventFragment extends Fragment implements EventContract.View{
                 mPresenter.loadEvents(true);
             }
         });
-        mPresenter.loadEvents(false);
     }
 
     @Override

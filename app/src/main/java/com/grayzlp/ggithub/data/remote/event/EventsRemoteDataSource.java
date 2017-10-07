@@ -1,5 +1,6 @@
 package com.grayzlp.ggithub.data.remote.event;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
@@ -9,6 +10,9 @@ import com.grayzlp.ggithub.data.repo.event.EventsDataSource;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,28 +20,15 @@ import retrofit2.Response;
 /**
  *  Implementation of the data source use network.
  */
-
+@Singleton
 public class EventsRemoteDataSource implements EventsDataSource {
 
-    private static EventsRemoteDataSource INSTANCE;
     private GithubPrefs mPrefs;
 
-    // TODO Use dagger to dependency injection
-    public static EventsRemoteDataSource getInstance(GithubPrefs pref) {
-        if (INSTANCE == null) {
-            synchronized (EventsRemoteDataSource.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new EventsRemoteDataSource(pref);
-                }
-            }
-        }
-        return INSTANCE;
+    @Inject
+    public EventsRemoteDataSource(@NonNull Context context) {
+        mPrefs = GithubPrefs.get(context);
     }
-
-    private EventsRemoteDataSource(GithubPrefs pref) {
-        mPrefs = pref;
-    }
-
 
     @Override
     public void getEvents(@NonNull final LoadEventsCallback callback) {

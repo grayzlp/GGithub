@@ -6,13 +6,15 @@ buildscript {
             'compileSdk'        : 26,
             'targetSdk'         : 26,
             'minSdk'            : 21,
-            'buildTools'        : '26.0.1',
-            'supportLibrary'    : '26.0.1',
+            'buildTools'        : '26.1.0',
+            'supportLibrary'    : '26.1.0',
             'okhttp'            : '3.9.0',
             'retrofit'          : '2.3.0',
             'butterknife'       : '8.8.1',
             'gson'              : '2.8.1',
             'glide'             : '4.1.1',
+            'dagger'            : '2.11',
+            'guava'             : '23.0-android'
     ]
     
     repositories {
