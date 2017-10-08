@@ -49,13 +49,14 @@ dependencies {
     implementation "com.android.support:palette-v7:${versions.supportLibrary}"
     implementation "com.android.support:design:${versions.supportLibrary}"
 
-    // Butter knife dependencies
+    // ButterKnife
     implementation "com.jakewharton:butterknife:${versions.butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
 
     // Api
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     implementation "com.google.guava:guava:${versions.guava}"
@@ -65,7 +66,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:${versions.glide}"
     implementation "com.github.bumptech.glide:okhttp3-integration:${versions.glide}@aar"
 
-    // Dagger dependencies
+    // Dagger
     implementation "com.google.dagger:dagger:${versions.dagger}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"
     implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
@@ -74,5 +75,9 @@ dependencies {
 
     // UI
     implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava}"
+    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}"
 
 }

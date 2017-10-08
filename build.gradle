@@ -14,7 +14,9 @@ buildscript {
             'gson'              : '2.8.1',
             'glide'             : '4.1.1',
             'dagger'            : '2.11',
-            'guava'             : '23.0-android'
+            'guava'             : '23.0-android',
+            'rxjava'            : '2.1.5',
+            'rxandroid'         : '2.0.1',
     ]
     
     repositories {
