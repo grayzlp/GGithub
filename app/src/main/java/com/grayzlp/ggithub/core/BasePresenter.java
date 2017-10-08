@@ -5,4 +5,9 @@ package com.grayzlp.ggithub.core;
  */
 
 public interface BasePresenter {
+
+    void subscribe();
+
+    void unsubscribe();
+
 }

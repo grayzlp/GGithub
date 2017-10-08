@@ -6,23 +6,20 @@ import com.grayzlp.ggithub.data.model.event.BaseEvent;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 /**
  * Main entry point for accessing events data.
  */
 
 public interface EventsDataSource {
 
-    interface LoadEventsCallback {
-        void onEventsLoaded(List<BaseEvent> events);
-        void onDataNotAvailable();
-    }
-
     interface GetEventCallback {
         void onEventLoaded(BaseEvent event);
         void onDataNotAvaiable();
     }
 
-    void getEvents(@NonNull LoadEventsCallback callback);
+    Observable<List<BaseEvent>> getEvents();
 
     void getTask(long id, @NonNull GetEventCallback callback);
 

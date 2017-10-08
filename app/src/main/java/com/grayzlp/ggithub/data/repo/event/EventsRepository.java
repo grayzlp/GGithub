@@ -6,13 +6,12 @@ import com.grayzlp.ggithub.data.Local;
 import com.grayzlp.ggithub.data.Remote;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import io.reactivex.Observable;
 
 /**
  * Concrete implementation to load events to from the data sources into a cache.
@@ -36,49 +35,35 @@ public class EventsRepository implements EventsDataSource {
     }
 
     @Override
-    public void getEvents(@NonNull final LoadEventsCallback callback) {
-        checkNotNull(callback);
+    public Observable<List<BaseEvent>> getEvents() {
         if (mCachedEvents != null && !mCacheIsDirty) {
-            callback.onEventsLoaded(new ArrayList<BaseEvent>(mCachedEvents));
-            return;
+            return Observable.just(mCachedEvents);
         }
+
+        Observable<List<BaseEvent>> remoteEvents = getAndSaveRemoteEvents();
+
         if (mCacheIsDirty) {
-            getEventsFromRemoteDataSource(callback);
+            return remoteEvents;
         } else {
-            mEventsLocalDataSource.getEvents(new LoadEventsCallback() {
-                @Override
-                public void onEventsLoaded(List<BaseEvent> events) {
-                    refreshCache(events);
-                    callback.onEventsLoaded(events);
-                }
-
-                @Override
-                public void onDataNotAvailable() {
-                    getEventsFromRemoteDataSource(callback);
-                }
-            });
+            Observable<List<BaseEvent>> localEvents = getAndCacheLocalEvents();
+            return Observable.concat(localEvents, remoteEvents)
+                    .firstOrError()
+                    .toObservable();
         }
     }
 
-    private void refreshCache(List<BaseEvent> events) {
-        mCachedEvents = events;
-        mCacheIsDirty = false;
+    private Observable<List<BaseEvent>> getAndCacheLocalEvents() {
+        return mEventsLocalDataSource.getEvents()
+                .doOnNext(events -> mCachedEvents = events);
     }
 
-    private void getEventsFromRemoteDataSource(final LoadEventsCallback callback) {
-        mEventsRemoteDataSource.getEvents(new LoadEventsCallback() {
-            @Override
-            public void onEventsLoaded(List<BaseEvent> events) {
-                refreshCache(events);
-                refreshLocalDataSource(events);
-                callback.onEventsLoaded(events);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                callback.onDataNotAvailable();
-            }
-        });
+    private Observable<List<BaseEvent>> getAndSaveRemoteEvents() {
+        return mEventsRemoteDataSource
+                .getEvents()
+                .flatMap(events -> Observable.just(events).doOnNext(items -> {
+                    mEventsLocalDataSource.saveTasks(items);
+                    mCachedEvents = items;
+                })).doOnComplete(() -> mCacheIsDirty = false);
     }
 
     private void refreshLocalDataSource(List<BaseEvent> events) {

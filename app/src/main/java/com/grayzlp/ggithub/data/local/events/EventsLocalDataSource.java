@@ -19,6 +19,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.grayzlp.ggithub.data.local.events.EventsPersistenceContract.EventEntry;
 
@@ -40,7 +42,7 @@ public class EventsLocalDataSource implements EventsDataSource {
     }
 
     @Override
-    public void getEvents(@NonNull LoadEventsCallback callback) {
+    public Observable<List<BaseEvent>> getEvents() {
         List<BaseEvent> events = new ArrayList<>();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String[] projection = {
@@ -66,12 +68,7 @@ public class EventsLocalDataSource implements EventsDataSource {
 
         db.close();
 
-        if (events.isEmpty()) {
-            callback.onDataNotAvailable();
-        } else {
-            callback.onEventsLoaded(events);
-        }
-
+        return Observable.just(events);
     }
 
     @Override

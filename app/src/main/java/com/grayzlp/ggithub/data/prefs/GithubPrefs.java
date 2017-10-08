@@ -20,6 +20,7 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -228,6 +229,7 @@ public class GithubPrefs {
                 .baseUrl(GithubService.ENDPOINT)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(GithubService.class);
     }

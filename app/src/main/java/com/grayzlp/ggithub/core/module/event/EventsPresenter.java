@@ -1,16 +1,20 @@
 package com.grayzlp.ggithub.core.module.event;
 
 
+import android.support.annotation.NonNull;
+
 import com.google.common.base.Preconditions;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
-import com.grayzlp.ggithub.data.repo.event.EventsDataSource;
 import com.grayzlp.ggithub.data.repo.event.EventsRepository;
 import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.util.LogUtils;
-
-import java.util.List;
+import com.grayzlp.ggithub.util.scheduler.BaseSchedulerProvider;
+import com.grayzlp.ggithub.util.scheduler.SchedulerProvider;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 import static com.grayzlp.ggithub.util.LogUtils.makeLogTag;
 
@@ -22,9 +26,27 @@ public class EventsPresenter implements EventContract.Presenter {
     private EventContract.View mEventView;
     private final EventsRepository mEventsRepository;
 
+    @NonNull
+    private CompositeDisposable mCompositeDisposable;
+
+    private final BaseSchedulerProvider mScheduleProvider;
+
     @Inject
     public EventsPresenter(EventsRepository eventsRepository) {
         mEventsRepository =  eventsRepository;
+
+        mScheduleProvider = SchedulerProvider.getInstance();
+        mCompositeDisposable = new CompositeDisposable();
+    }
+
+    @Override
+    public void subscribe() {
+        loadEvents(true);
+    }
+
+    @Override
+    public void unsubscribe() {
+        mCompositeDisposable.clear();
     }
 
     @Override
@@ -34,19 +56,23 @@ public class EventsPresenter implements EventContract.Presenter {
         if (forceUpdate) {
             mEventsRepository.refreshTasks();
         }
-        mEventsRepository.getEvents(new EventsDataSource.LoadEventsCallback() {
-            @Override
-            public void onEventsLoaded(List<BaseEvent> events) {
-                mEventView.showLoadingIndicator(false);
-                mEventView.showEvents(events);
-            }
 
-            @Override
-            public void onDataNotAvailable() {
-                mEventView.showLoadingIndicator(false);
-                mEventView.showLoadingError();
-            }
-        });
+        mCompositeDisposable.clear();
+        Disposable disposable = mEventsRepository
+                .getEvents()
+                .subscribeOn(mScheduleProvider.io())
+                .observeOn(mScheduleProvider.ui())
+                .subscribe(
+                        events -> {
+                            mEventView.showLoadingIndicator(false);
+                            mEventView.showEvents(events);
+                        },
+                        throwable -> {
+                            mEventView.showLoadingIndicator(false);
+                            mEventView.showLoadingError();
+                        }
+                );
+        mCompositeDisposable.add(disposable);
     }
 
     @Override
