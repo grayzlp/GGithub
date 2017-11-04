@@ -3,10 +3,12 @@ package com.grayzlp.ggithub.core.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +36,7 @@ import com.grayzlp.ggithub.core.module.event.EventsFragment;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.LogUtils;
+import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import javax.inject.Inject;
 
@@ -67,7 +70,8 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
     GithubPrefs prefs;
 
-    @Inject EventsFragment mEventFragment;
+    @Inject
+    EventsFragment mEventFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +100,24 @@ public class HomeActivity extends DaggerAppCompatActivity {
                         selectPageByMenu(item);
                         break;
                     case R.id.drawer_sign_out:
-                        drawer.closeDrawers();
                         signOut();
+                        break;
+                    case R.id.drawer_clear:
+                        clearCache();
+                        break;
 
                 }
+                drawer.closeDrawers();
                 return true;
             }
         });
+    }
+
+    private void clearCache() {
+        new ClearDiskCacheAsyncTask().execute(this);
+        Snackbar.make(getWindow().getDecorView(),
+                getString(R.string.clear_success),
+                Snackbar.LENGTH_SHORT).show();
     }
 
     private void signOut() {
@@ -195,7 +210,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
         username.setText(user.name);
         userEmail.setText(user.email);
-        Glide.with(getApplicationContext())
+        GlideApp.with(getApplicationContext())
                 .load(user.avatar_url)
                 .into(userAvatar);
 
@@ -276,7 +291,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
         static final int PAGE_COUNT = PAGE_TITLE.size();
 
-//        @Inject
+        //        @Inject
 //        Lazy<EventsFragment> mEventsFragmentProvider;
         EventsFragment mEventsFragment;
 
@@ -305,6 +320,16 @@ public class HomeActivity extends DaggerAppCompatActivity {
         @Override
         public int getCount() {
             return PAGE_TITLE.size();
+        }
+    }
+
+
+    private static class ClearDiskCacheAsyncTask extends AsyncTask<Context, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Context... contexts) {
+            Glide.get(contexts[0]).clearDiskCache();
+            return null;
         }
     }
 

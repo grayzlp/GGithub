@@ -13,10 +13,10 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.model.event.inheritance.WatchEvent;
+import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ import butterknife.ButterKnife;
 
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    final Activity mHost;
-    List<BaseEvent> mItems;
+    private final Activity mHost;
+    private List<BaseEvent> mItems;
     private final LayoutInflater mLayoutInflater;
 
     public EventAdapter(Activity host,
@@ -41,9 +41,13 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.mLayoutInflater = layoutInflater;
     }
 
-    public void swapItem(List<BaseEvent> items){
+    void swapItem(List<BaseEvent> items){
         mItems = items;
         notifyDataSetChanged();
+    }
+
+    List<BaseEvent> getItem() {
+        return mItems;
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -75,8 +79,9 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EventHolder eventHolder = (EventHolder) holder;
         BaseEvent event = mItems.get(position);
-        Glide.with(mHost)
+        GlideApp.with(mHost)
                 .load(event.actor.avatar_url)
+                .placeholder(R.drawable.portrait_placeholder)
                 .into(eventHolder.avatar);
         eventHolder.actor.setText(event.actor.login);
         eventHolder.action.setText(event.type);

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,16 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.ListPreloader;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.util.ViewPreloadSizeProvider;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.util.LogUtils;
+import com.grayzlp.ggithub.util.glide.GlideApp;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,7 +37,7 @@ import dagger.android.support.DaggerFragment;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @ActivityScoped
-public class EventsFragment extends DaggerFragment implements EventContract.View{
+public class EventsFragment extends DaggerFragment implements EventContract.View {
 
     private static final String TAG = LogUtils.makeLogTag("EventsFragment");
 
@@ -56,7 +62,7 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
     EventAdapter mAdapter;
 
     @Inject
-    public EventsFragment(){
+    public EventsFragment() {
         // no-op
     }
 
@@ -64,8 +70,32 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mInflater = inflater;
-        View root = inflater.inflate(R.layout.fragment_event, container, false);
+        final View root = inflater.inflate(R.layout.fragment_event, container, false);
         ButterKnife.bind(this, root);
+
+        ListPreloader.PreloadSizeProvider sizeProvider = new ViewPreloadSizeProvider();
+        ListPreloader.PreloadModelProvider<String> modelProvider =
+                new ListPreloader.PreloadModelProvider<String>() {
+            @NonNull
+            @Override
+            public List<String> getPreloadItems(int position) {
+                String url = mAdapter.getItem().get(position).actor.avatar_url;
+                if (TextUtils.isEmpty(url)) {
+                    return Collections.emptyList();
+                } else {
+                    return Collections.singletonList(url);
+                }
+            }
+
+            @Nullable
+            @Override
+            public RequestBuilder getPreloadRequestBuilder(String url) {
+                return GlideApp.with(root)
+                        .load(url)
+                        .placeholder(R.drawable.portrait_placeholder);
+            }
+        };
+
         return root;
     }
 
