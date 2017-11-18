@@ -23,10 +23,6 @@ import dagger.android.support.DaggerApplication;
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
-    void inject(GGithubApplication application);
-
-    EventsRepository getEventsRepository();
-
     @Override
     void inject(DaggerApplication instance);
 

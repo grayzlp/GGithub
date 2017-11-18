@@ -11,6 +11,6 @@ public abstract class ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = {EventsModule.class})
-    abstract HomeActivity homeActivity();
+    abstract HomeActivity bindHomeActivity();
 
 }
