@@ -16,6 +16,7 @@ buildscript {
             'dagger'            : '2.11',
             'guava'             : '23.0-android',
             'rxjava'            : '2.1.5',
+            'rxandroid'         : '2.0.1',
     ]
     
     repositories {
