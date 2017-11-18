@@ -23,6 +23,8 @@ public class EventsPresenter implements EventContract.Presenter {
 
     private static final String TAG = makeLogTag("EventsPresenter");
 
+    private boolean mFirstLoad = true;
+
     private EventContract.View mEventView;
     private final EventsRepository mEventsRepository;
 
@@ -53,8 +55,9 @@ public class EventsPresenter implements EventContract.Presenter {
     public void loadEvents(boolean forceUpdate) {
         LogUtils.LOGD(TAG, "Load events start");
         mEventView.showLoadingIndicator(true);
-        if (forceUpdate) {
+        if (forceUpdate || mFirstLoad) {
             mEventsRepository.refreshTasks();
+            mFirstLoad = false;
         }
 
         mCompositeDisposable.clear();

@@ -115,12 +115,7 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.loadEvents(true);
-            }
-        });
+        mRefresh.setOnRefreshListener(() -> mPresenter.loadEvents(true));
     }
 
     @Override

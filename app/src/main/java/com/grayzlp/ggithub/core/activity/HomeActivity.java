@@ -125,20 +125,12 @@ public class HomeActivity extends DaggerAppCompatActivity {
                 .content(R.string.sign_out_check)
                 .positiveText(R.string.sign_out)
                 .negativeText(R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        prefs.signOut();
-                        startActivity(new Intent(HomeActivity.this, SignInActivity.class));
-                        finish();
-                    }
+                .onPositive((dialog, which) -> {
+                    prefs.signOut();
+                    startActivity(new Intent(HomeActivity.this, SignInActivity.class));
+                    finish();
                 })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.cancel();
-                    }
-                })
+                .onNegative((dialog, which) -> dialog.cancel())
                 .build()
                 .show();
     }
@@ -328,7 +320,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
         @Override
         protected Void doInBackground(Context... contexts) {
-            Glide.get(contexts[0]).clearDiskCache();
+            GlideApp.get(contexts[0]).clearDiskCache();
             return null;
         }
     }
