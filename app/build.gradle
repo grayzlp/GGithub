@@ -82,6 +82,5 @@ dependencies {
 
     // Rx
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava}"
-    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}"
 
 }
