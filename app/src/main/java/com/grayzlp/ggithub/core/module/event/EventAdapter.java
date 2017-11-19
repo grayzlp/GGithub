@@ -33,7 +33,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<BaseEvent> mItems;
     private final LayoutInflater mLayoutInflater;
 
-    public EventAdapter(Activity host,
+    EventAdapter(Activity host,
                         @NonNull List<BaseEvent> items,
                         LayoutInflater layoutInflater) {
         this.mHost = host;
@@ -93,7 +93,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         if (event instanceof WatchEvent) {
             WatchEvent we = (WatchEvent) event;
-            eventHolder.detail.setText(we.actor.login + " " + we.payload.action + " " + we.repo.name);
+            eventHolder.detail.setText(
+                    String.format("%s %s %s", we.actor.login, we.payload.action, we.repo.name));
         }
 
     }

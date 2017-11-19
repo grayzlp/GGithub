@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
@@ -73,7 +74,12 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
         final View root = inflater.inflate(R.layout.fragment_event, container, false);
         ButterKnife.bind(this, root);
 
-        ListPreloader.PreloadSizeProvider sizeProvider = new ViewPreloadSizeProvider();
+        configureRecyclerView(root);
+        return root;
+    }
+
+    private void configureRecyclerView(View root) {
+        ListPreloader.PreloadSizeProvider<String> sizeProvider = new ViewPreloadSizeProvider<>();
         ListPreloader.PreloadModelProvider<String> modelProvider =
                 new ListPreloader.PreloadModelProvider<String>() {
             @NonNull
@@ -95,8 +101,11 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
                         .placeholder(R.drawable.portrait_placeholder);
             }
         };
+        RecyclerViewPreloader<String> preloader =
+                new RecyclerViewPreloader<>(this,
+                        modelProvider, sizeProvider, 10);
+        mEventsList.addOnScrollListener(preloader);
 
-        return root;
     }
 
 
@@ -116,11 +125,6 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mRefresh.setOnRefreshListener(() -> mPresenter.loadEvents(true));
-    }
-
-    @Override
-    public void setPresenter(@NonNull EventContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
     }
 
     @Override

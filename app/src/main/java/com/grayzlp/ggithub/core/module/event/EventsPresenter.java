@@ -42,16 +42,6 @@ public class EventsPresenter implements EventContract.Presenter {
     }
 
     @Override
-    public void subscribe() {
-        loadEvents(true);
-    }
-
-    @Override
-    public void unsubscribe() {
-        mCompositeDisposable.clear();
-    }
-
-    @Override
     public void loadEvents(boolean forceUpdate) {
         LogUtils.LOGD(TAG, "Load events start");
         mEventView.showLoadingIndicator(true);
@@ -97,5 +87,6 @@ public class EventsPresenter implements EventContract.Presenter {
     @Override
     public void dropView() {
         mEventView = null;
+        mCompositeDisposable.clear();
     }
 }

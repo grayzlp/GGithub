@@ -6,7 +6,7 @@ import com.grayzlp.ggithub.data.model.user.User;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -43,7 +43,7 @@ public interface GithubService {
     Call<BaseEvent[]> listOrganizationEvents(@Path("org") String org);
 
     @GET("users/{username}/received_events/public")
-    Observable<List<BaseEvent>> listReceivedEvents(@Path("username") String username);
+    Flowable<List<BaseEvent>> listReceivedEvents(@Path("username") String username);
 
     @GET("users/{username}/events")
     Call<BaseEvent[]> listPerformedEvents(@Path("username") String username);

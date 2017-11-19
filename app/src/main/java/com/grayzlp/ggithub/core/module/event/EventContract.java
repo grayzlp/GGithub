@@ -25,7 +25,7 @@ public class EventContract {
     }
 
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<View> {
 
         void loadEvents(boolean forceUpdate);
 

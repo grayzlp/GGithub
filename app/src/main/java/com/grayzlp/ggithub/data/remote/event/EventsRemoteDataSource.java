@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -28,18 +29,8 @@ public class EventsRemoteDataSource implements EventsDataSource {
     }
 
     @Override
-    public Observable<List<BaseEvent>> getEvents() {
+    public Flowable<List<BaseEvent>> getEvents() {
         return mPrefs.getApi().listReceivedEvents(mPrefs.getUserName());
-    }
-
-    @Override
-    public void getTask(long id, @NonNull GetEventCallback callback) {
-        // TODO
-    }
-
-    @Override
-    public void saveTasks(List<BaseEvent> events) {
-        // no-op
     }
 
     @Override
