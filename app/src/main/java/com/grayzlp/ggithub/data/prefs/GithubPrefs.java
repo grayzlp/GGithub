@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +25,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Storing github user state
+ * Storing github user state.
+ *
+ * TODO Take care of the case when user revoke the access token!
  */
 
 public class GithubPrefs {
@@ -78,7 +81,7 @@ public class GithubPrefs {
         accessToken = prefs.getString(KEY_ACCESS_TOKEN, null);
         isSignedIn = !TextUtils.isEmpty(accessToken);
         if (isSignedIn) {
-            userId = prefs.getLong(KEY_USER_ID, 0l);
+            userId = prefs.getLong(KEY_USER_ID, 0L);
             userName = prefs.getString(KEY_USER_NAME, null);
             userUsername = prefs.getString(KEY_USER_USERNAME, null);
             userAvatar = prefs.getString(KEY_USER_AVATAR, null);

@@ -40,8 +40,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @ActivityScoped
 public class EventsFragment extends DaggerFragment implements EventContract.View {
 
-    private static final String TAG = LogUtils.makeLogTag("EventsFragment");
-
     @Inject
     EventContract.Presenter mPresenter;
 
@@ -57,7 +55,6 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
     View mEmptyView;
 
 
-    private boolean mRefreshing;
     private LayoutInflater mInflater;
 
     EventAdapter mAdapter;

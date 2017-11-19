@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TabHost;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.grayzlp.ggithub.BuildConfig;
@@ -18,6 +19,9 @@ import com.grayzlp.ggithub.data.api.GithubService;
 import com.grayzlp.ggithub.data.model.AccessToken;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
+import com.grayzlp.ggithub.util.LogUtils;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +34,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInActivity extends AppCompatActivity {
+
+    private static final String TAG = LogUtils.makeLogTag("SignInActivity");
 
     boolean isLoginFailed = false;
 
@@ -126,7 +132,7 @@ public class SignInActivity extends AppCompatActivity {
                     .progress(true, 0)
                     .build();
         }
-        loading.show();
+            loading.show();
     }
 
     private void showSignIn() {
@@ -163,7 +169,7 @@ public class SignInActivity extends AppCompatActivity {
     // TODO Fix base authenticate flow
     @OnClick(R.id.sign_in)
     public void signIn() {
-        // had not fix the compatibility of oauth and base authenticated flow. Only use oauth now.
+        // Fix the compatibility of oauth and base authenticated flow in future. Only use oauth now.
     }
 
     boolean isLoginValid() {

@@ -26,13 +26,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.bumptech.glide.Glide;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.core.module.event.EventsFragment;
+import com.grayzlp.ggithub.core.module.star.StarsFragment;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.LogUtils;
@@ -71,7 +70,9 @@ public class HomeActivity extends DaggerAppCompatActivity {
     GithubPrefs prefs;
 
     @Inject
-    EventsFragment mEventFragment;
+    EventsFragment mEventsFragment;
+    @Inject
+    StarsFragment mStarsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,28 +89,25 @@ public class HomeActivity extends DaggerAppCompatActivity {
     }
 
     private void setupDrawer() {
-        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.drawer_events:
-                    case R.id.drawer_stars:
-                    case R.id.drawer_watch:
-                    case R.id.drawer_people:
-                    case R.id.drawer_gists:
-                        selectPageByMenu(item);
-                        break;
-                    case R.id.drawer_sign_out:
-                        signOut();
-                        break;
-                    case R.id.drawer_clear:
-                        clearCache();
-                        break;
+        navigation.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.drawer_events:
+                case R.id.drawer_stars:
+                case R.id.drawer_watch:
+                case R.id.drawer_people:
+                case R.id.drawer_gists:
+                    selectPageByMenu(item);
+                    break;
+                case R.id.drawer_sign_out:
+                    signOut();
+                    break;
+                case R.id.drawer_clear:
+                    clearCache();
+                    break;
 
-                }
-                drawer.closeDrawers();
-                return true;
             }
+            drawer.closeDrawers();
+            return true;
         });
     }
 
@@ -145,7 +143,10 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
     private void setupViewPager() {
         tab.setupWithViewPager(contentPager, true);
-        contentPager.setAdapter(new HomeContentAdapter(getSupportFragmentManager(), this, mEventFragment));
+        contentPager.setAdapter(
+                new HomeContentAdapter(getSupportFragmentManager(), this,
+                        mEventsFragment,
+                        mStarsFragment));
         contentPager.setOffscreenPageLimit(HomeContentAdapter.PAGE_COUNT);
         contentPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -167,25 +168,22 @@ public class HomeActivity extends DaggerAppCompatActivity {
     }
 
     private void setupStatusBar() {
-        drawer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                LinearLayout.LayoutParams lpStatus = (LinearLayout.LayoutParams)
-                        statusBarBackground.getLayoutParams();
-                lpStatus.height = insets.getSystemWindowInsetTop();
-                statusBarBackground.setLayoutParams(lpStatus);
+        drawer.setOnApplyWindowInsetsListener((v, insets) -> {
+            LinearLayout.LayoutParams lpStatus = (LinearLayout.LayoutParams)
+                    statusBarBackground.getLayoutParams();
+            lpStatus.height = insets.getSystemWindowInsetTop();
+            statusBarBackground.setLayoutParams(lpStatus);
 
-                return insets.consumeSystemWindowInsets();
-            }
+            return insets.consumeSystemWindowInsets();
         });
     }
 
     private void setupNavigation() {
         // https://stackoverflow.com/questions/33194594/navigationview-get-find-header-layout
         View header = navigation.inflateHeaderView(R.layout.drawer_header);
-        username = (TextView) header.findViewById(R.id.title_username);
-        userEmail = (TextView) header.findViewById(R.id.title_email);
-        userAvatar = (ImageView) header.findViewById(R.id.avatar);
+        username = header.findViewById(R.id.title_username);
+        userEmail = header.findViewById(R.id.title_email);
+        userAvatar = header.findViewById(R.id.avatar);
 
         navigation.setCheckedItem(R.id.drawer_events);
     }
@@ -283,15 +281,17 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
         static final int PAGE_COUNT = PAGE_TITLE.size();
 
-        //        @Inject
-//        Lazy<EventsFragment> mEventsFragmentProvider;
-        EventsFragment mEventsFragment;
 
-        @Inject
-        public HomeContentAdapter(FragmentManager fm, Context context, EventsFragment fragment) {
+        EventsFragment mEventsFragment;
+        StarsFragment mStarsFragment;
+
+        HomeContentAdapter(FragmentManager fm, Context context,
+                           EventsFragment eventsFragment,
+                           StarsFragment starsFragment) {
             super(fm);
             mContext = context;
-            mEventsFragment = fragment;
+            mEventsFragment = eventsFragment;
+            mStarsFragment = starsFragment;
         }
 
         @Override
@@ -299,6 +299,8 @@ public class HomeActivity extends DaggerAppCompatActivity {
             switch (position) {
                 case PAGE_EVENT:
                     return mEventsFragment;
+                case PAGE_STARS:
+                    return mStarsFragment;
                 default:
                     return new Fragment();
             }

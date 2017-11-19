@@ -5,6 +5,7 @@ import android.app.Application;
 import com.grayzlp.ggithub.GGithubApplication;
 import com.grayzlp.ggithub.data.repo.event.EventsRepository;
 import com.grayzlp.ggithub.data.repo.event.EventsRepositoryModule;
+import com.grayzlp.ggithub.data.repo.star.StarsRepositoryModule;
 
 import javax.inject.Singleton;
 
@@ -17,17 +18,18 @@ import dagger.android.support.DaggerApplication;
 
 @Singleton
 @Component(modules = {
-        EventsRepositoryModule.class,
         ApplicationModule.class,
         ActivityBindingModule.class,
-        AndroidSupportInjectionModule.class})
-public interface AppComponent extends AndroidInjector<DaggerApplication> {
+        AndroidSupportInjectionModule.class,
+        EventsRepositoryModule.class,
+        StarsRepositoryModule.class})
+public abstract class AppComponent implements AndroidInjector<DaggerApplication> {
 
     @Override
-    void inject(DaggerApplication instance);
+    public abstract void inject(DaggerApplication instance);
 
     @Component.Builder
-    interface Builder {
+    public interface Builder {
 
         @BindsInstance
         AppComponent.Builder application(Application application);

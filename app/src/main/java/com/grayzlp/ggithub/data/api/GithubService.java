@@ -2,13 +2,16 @@ package com.grayzlp.ggithub.data.api;
 
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.model.feed.Feeds;
+import com.grayzlp.ggithub.data.model.repo.Starred;
 import com.grayzlp.ggithub.data.model.user.User;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -54,5 +57,16 @@ public interface GithubService {
     @GET("users/{username}/events/orgs/{org}")
     Call<BaseEvent[]> listOrganizationEventByUser(@Path("username") String username,
                                                   @Path("org") String org);
+
+    @GET("user/starred")
+    Flowable<List<Starred>> listCurrentUserStarred();
+
+    @POST("user/starred/{owner}/{repo}")
+    Flowable<Void> starRepo(@Path("owner") String owner,
+                            @Path("repo") String repo);
+
+    @DELETE("user/starred/{owner}/{repo}")
+    Flowable<Void> unstarRepo(@Path("owner") String owner,
+                            @Path("repo") String repo);
 
 }
