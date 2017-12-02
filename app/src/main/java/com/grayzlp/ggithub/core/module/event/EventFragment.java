@@ -105,12 +105,12 @@ public class EventFragment extends DaggerFragment implements EventContract.View 
 
     }
 
-
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         mPresenter.takeView(this);
     }
+
 
     @Override
     public void onDestroy() {
