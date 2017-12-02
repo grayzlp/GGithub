@@ -19,9 +19,9 @@ import io.reactivex.disposables.Disposable;
 import static com.grayzlp.ggithub.util.LogUtils.makeLogTag;
 
 @ActivityScoped
-public class EventsPresenter implements EventContract.Presenter {
+public class EventPresenter implements EventContract.Presenter {
 
-    private static final String TAG = makeLogTag("EventsPresenter");
+    private static final String TAG = makeLogTag("EventPresenter");
 
     private boolean mFirstLoad = true;
 
@@ -34,7 +34,7 @@ public class EventsPresenter implements EventContract.Presenter {
     private final BaseSchedulerProvider mScheduleProvider;
 
     @Inject
-    public EventsPresenter(EventsRepository eventsRepository) {
+    public EventPresenter(EventsRepository eventsRepository) {
         mEventsRepository =  eventsRepository;
 
         mScheduleProvider = SchedulerProvider.getInstance();

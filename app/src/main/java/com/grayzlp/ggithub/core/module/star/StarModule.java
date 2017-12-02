@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.core.module.event;
+package com.grayzlp.ggithub.core.module.star;
 
 import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.di.FragmentScoped;
@@ -8,12 +8,13 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class EventsModule {
+public abstract class StarModule {
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract EventsFragment eventsFragment();
+    abstract StarFragment starFragment();
 
     @ActivityScoped
-    @Binds abstract EventContract.Presenter eventsPresenter(EventsPresenter presenter);
+    @Binds
+    abstract StarContract.Presenter starPresenter(StarPresenter starPresenter);
 
 }

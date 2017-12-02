@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 
-public class StarsFragment extends DaggerFragment implements StarContract.View{
+public class StarFragment extends DaggerFragment implements StarContract.View{
 
     @Inject
     StarContract.Presenter mPresenter;
@@ -43,7 +43,7 @@ public class StarsFragment extends DaggerFragment implements StarContract.View{
     private StarAdapter mAdapter;
 
     @Inject
-    public StarsFragment() {
+    public StarFragment() {
         // no-op
     }
 

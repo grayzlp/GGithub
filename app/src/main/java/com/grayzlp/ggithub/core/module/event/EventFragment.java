@@ -38,7 +38,7 @@ import dagger.android.support.DaggerFragment;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @ActivityScoped
-public class EventsFragment extends DaggerFragment implements EventContract.View {
+public class EventFragment extends DaggerFragment implements EventContract.View {
 
     @Inject
     EventContract.Presenter mPresenter;
@@ -60,7 +60,7 @@ public class EventsFragment extends DaggerFragment implements EventContract.View
     EventAdapter mAdapter;
 
     @Inject
-    public EventsFragment() {
+    public EventFragment() {
         // no-op
     }
 

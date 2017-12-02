@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -21,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,8 +28,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.grayzlp.ggithub.R;
-import com.grayzlp.ggithub.core.module.event.EventsFragment;
-import com.grayzlp.ggithub.core.module.star.StarsFragment;
+import com.grayzlp.ggithub.core.module.event.EventFragment;
+import com.grayzlp.ggithub.core.module.star.StarFragment;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.LogUtils;
@@ -70,9 +68,9 @@ public class HomeActivity extends DaggerAppCompatActivity {
     GithubPrefs prefs;
 
     @Inject
-    EventsFragment mEventsFragment;
+    EventFragment mEventsFragment;
     @Inject
-    StarsFragment mStarsFragment;
+    StarFragment mStarsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,12 +280,12 @@ public class HomeActivity extends DaggerAppCompatActivity {
         static final int PAGE_COUNT = PAGE_TITLE.size();
 
 
-        EventsFragment mEventsFragment;
-        StarsFragment mStarsFragment;
+        EventFragment mEventsFragment;
+        StarFragment mStarsFragment;
 
         HomeContentAdapter(FragmentManager fm, Context context,
-                           EventsFragment eventsFragment,
-                           StarsFragment starsFragment) {
+                           EventFragment eventsFragment,
+                           StarFragment starsFragment) {
             super(fm);
             mContext = context;
             mEventsFragment = eventsFragment;
