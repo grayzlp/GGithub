@@ -26,7 +26,7 @@ public class StarPresenter implements StarContract.Presenter {
     private final BaseSchedulerProvider mSchedulerProvider;
 
     @Inject
-    public StarPresenter(StarsRepository starsRepository) {
+    StarPresenter(StarsRepository starsRepository) {
         mRepository = starsRepository;
 
         mSchedulerProvider = SchedulerProvider.getInstance();
@@ -38,7 +38,7 @@ public class StarPresenter implements StarContract.Presenter {
     @Override
     public void takeView(StarContract.View view) {
         mStarView = Preconditions.checkNotNull(view);
-        loadStars(true);
+        loadStars(false);
     }
 
     @Override

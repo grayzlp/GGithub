@@ -2,6 +2,7 @@ package com.grayzlp.ggithub.core.module.star;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -57,7 +58,15 @@ public class StarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Starred starred = mItems.get(position);
 
         viewHolder.title.setText(starred.full_name);
-        viewHolder.tag.setText(starred.language);
+
+        if (!TextUtils.isEmpty(starred.language)) {
+            viewHolder.tag.setVisibility(View.VISIBLE);
+            viewHolder.tag.setText(starred.language);
+        } else {
+            viewHolder.tag.setVisibility(View.GONE);
+        }
+
+
         viewHolder.description.setText(starred.description);
         viewHolder.forksCount.setText(String.valueOf(starred.forks_count));
         viewHolder.stargazersCount.setText(String.valueOf(starred.stargazers_count));
@@ -83,7 +92,7 @@ public class StarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.forks_count) TextView forksCount;
         @BindView(R.id.stargazers_count) TextView stargazersCount;
 
-        public StarViewHolder(View itemView) {
+        StarViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
