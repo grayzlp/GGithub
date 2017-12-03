@@ -29,6 +29,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.core.module.event.EventFragment;
+import com.grayzlp.ggithub.core.module.people.PeopleFragment;
 import com.grayzlp.ggithub.core.module.star.StarFragment;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
@@ -71,6 +72,8 @@ public class HomeActivity extends DaggerAppCompatActivity {
     EventFragment mEventsFragment;
     @Inject
     StarFragment mStarsFragment;
+    @Inject
+    PeopleFragment mPeopleFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +144,11 @@ public class HomeActivity extends DaggerAppCompatActivity {
     private void setupViewPager() {
         tab.setupWithViewPager(contentPager, true);
         contentPager.setAdapter(
-                new HomeContentAdapter(getSupportFragmentManager(), this,
+                new HomeContentAdapter(getSupportFragmentManager(),
+                        this,
                         mEventsFragment,
-                        mStarsFragment));
+                        mStarsFragment,
+                        mPeopleFragment));
         contentPager.setOffscreenPageLimit(HomeContentAdapter.PAGE_COUNT);
         contentPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -278,14 +283,17 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
         EventFragment mEventsFragment;
         StarFragment mStarsFragment;
+        PeopleFragment mPeopleFragment;
 
         HomeContentAdapter(FragmentManager fm, Context context,
                            EventFragment eventsFragment,
-                           StarFragment starsFragment) {
+                           StarFragment starsFragment,
+                           PeopleFragment peopleFragment) {
             super(fm);
             mContext = context;
             mEventsFragment = eventsFragment;
             mStarsFragment = starsFragment;
+            mPeopleFragment = peopleFragment;
         }
 
         @Override
@@ -295,6 +303,8 @@ public class HomeActivity extends DaggerAppCompatActivity {
                     return mEventsFragment;
                 case PAGE_STARS:
                     return mStarsFragment;
+                case PAGE_PEOPLE:
+                    return mPeopleFragment;
                 default:
                     return new Fragment();
             }

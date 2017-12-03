@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -68,5 +69,24 @@ public interface GithubService {
     @DELETE("user/starred/{owner}/{repo}")
     Flowable<Void> unstarRepo(@Path("owner") String owner,
                             @Path("repo") String repo);
+
+    @GET("/users/{username}/followers")
+    Flowable<List<User>> listUsersFollowers(@Path("username") String username);
+
+    @GET("/users/followers")
+    Flowable<List<User>> listCurrentUserFollowers();
+
+    @GET("/users/{username}/following")
+    Flowable<List<User>> listUsersFollowing(@Path("username") String username);
+
+    @GET("/users/following")
+    Flowable<List<User>> listCurrentUserFollowing();
+
+    @PUT("/user/following/{username}")
+    Flowable<Void> followUser(@Path("username") String username);
+
+    @DELETE("/user/following/{username}")
+    Flowable<Void> unfollowUser(@Path("username") String username);
+
 
 }

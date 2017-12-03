@@ -3,8 +3,10 @@ package com.grayzlp.ggithub.di;
 import android.app.Application;
 
 import com.grayzlp.ggithub.GGithubApplication;
+import com.grayzlp.ggithub.data.remote.people.PeopleRemoteDataSource;
 import com.grayzlp.ggithub.data.repo.event.EventsRepository;
 import com.grayzlp.ggithub.data.repo.event.EventsRepositoryModule;
+import com.grayzlp.ggithub.data.repo.people.PeopleDataSource;
 import com.grayzlp.ggithub.data.repo.star.StarsRepositoryModule;
 
 import javax.inject.Singleton;
@@ -22,7 +24,8 @@ import dagger.android.support.DaggerApplication;
         ActivityBindingModule.class,
         AndroidSupportInjectionModule.class,
         EventsRepositoryModule.class,
-        StarsRepositoryModule.class})
+        StarsRepositoryModule.class,
+        PeopleRemoteDataSource.class})
 public abstract class AppComponent implements AndroidInjector<DaggerApplication> {
 
     @Override
