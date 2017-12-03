@@ -24,10 +24,6 @@
             android:title="@string/stars"
             android:icon="@drawable/ic_stars"/>
         <item
-            android:id="@+id/drawer_watch"
-            android:title="@string/watch"
-            android:icon="@drawable/ic_watchlist" />
-        <item
             android:id="@+id/drawer_people"
             android:title="@string/people"
             android:icon="@drawable/ic_people"/>

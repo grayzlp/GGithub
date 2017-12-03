@@ -91,7 +91,6 @@ public class HomeActivity extends DaggerAppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.drawer_events:
                 case R.id.drawer_stars:
-                case R.id.drawer_watch:
                 case R.id.drawer_people:
                 case R.id.drawer_gists:
                     selectPageByMenu(item);
@@ -249,7 +248,6 @@ public class HomeActivity extends DaggerAppCompatActivity {
         static {
             MENU_PAGER_MAP.put(R.id.drawer_events, HomeContentAdapter.PAGE_EVENT);
             MENU_PAGER_MAP.put(R.id.drawer_stars, HomeContentAdapter.PAGE_STARS);
-            MENU_PAGER_MAP.put(R.id.drawer_watch, HomeContentAdapter.PAGE_WATCH);
             MENU_PAGER_MAP.put(R.id.drawer_people, HomeContentAdapter.PAGE_PEOPLE);
             MENU_PAGER_MAP.put(R.id.drawer_gists, HomeContentAdapter.PAGE_GIST);
         }
@@ -260,19 +258,17 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
         static final int PAGE_EVENT = 0;
         static final int PAGE_STARS = 1;
-        static final int PAGE_WATCH = 2;
-        static final int PAGE_PEOPLE = 3;
-        static final int PAGE_GIST = 4;
+        static final int PAGE_PEOPLE = 2;
+        static final int PAGE_GIST = 3;
 
 
-        public Context mContext;
+        Context mContext;
 
-        static SparseIntArray PAGE_TITLE = new SparseIntArray(5);
+        static SparseIntArray PAGE_TITLE = new SparseIntArray(4);
 
         static {
             PAGE_TITLE.append(PAGE_EVENT, R.string.events);
             PAGE_TITLE.append(PAGE_STARS, R.string.stars);
-            PAGE_TITLE.append(PAGE_WATCH, R.string.watch);
             PAGE_TITLE.append(PAGE_PEOPLE, R.string.people);
             PAGE_TITLE.append(PAGE_GIST, R.string.gists);
         }
