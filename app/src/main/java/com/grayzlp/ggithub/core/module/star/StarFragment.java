@@ -4,14 +4,19 @@ package com.grayzlp.ggithub.core.module.star;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.grayzlp.ggithub.R;
+import com.grayzlp.ggithub.core.module.event.EventAdapter;
 import com.grayzlp.ggithub.data.model.repo.Starred;
 
 import java.util.List;
@@ -56,13 +61,39 @@ public class StarFragment extends DaggerFragment implements StarContract.View{
         final View root = inflater.inflate(R.layout.fragment_star, container, false);
         ButterKnife.bind(this, root);
 
+        configureRecyclerView();
         return root;
 
     }
 
     @Override
-    public void showLoadingIndicator(boolean active) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mRefresh.setOnRefreshListener(() -> mPresenter.loadStars(true));
+    }
 
+    private void configureRecyclerView() {
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mStarsList.getContext(),
+                DividerItemDecoration.VERTICAL);
+        mStarsList.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.takeView(this);
+    }
+
+    @Override
+    public void onStop() {
+        mPresenter.dropView();
+        super.onStop();
+    }
+
+    @Override
+    public void showLoadingIndicator(boolean active) {
+        mRefresh.setRefreshing(active);
     }
 
     @Override
@@ -77,7 +108,28 @@ public class StarFragment extends DaggerFragment implements StarContract.View{
 
     @Override
     public void showStar(List<Starred> starreds) {
+        mLoading.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+        mStarsList.setVisibility(View.VISIBLE);
 
+        if (mAdapter == null) {
+            mAdapter = new StarAdapter(getActivity(), starreds, mInflater);
+            mStarsList.setAdapter(mAdapter);
+            mStarsList.setHasFixedSize(true);
+            mStarsList.setLayoutManager(new LinearLayoutManager(getContext()));
+            runLayoutAnimation();
+        } else {
+            mAdapter.swapItem(starreds);
+        }
+    }
+
+    public void runLayoutAnimation() {
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_list_enter);
+
+        mStarsList.setLayoutAnimation(controller);
+        mStarsList.getAdapter().notifyDataSetChanged();
+        mStarsList.scheduleLayoutAnimation();
     }
 
     @Override

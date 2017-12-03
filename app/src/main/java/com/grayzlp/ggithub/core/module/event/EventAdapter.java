@@ -34,14 +34,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final LayoutInflater mLayoutInflater;
 
     EventAdapter(Activity host,
-                        @NonNull List<BaseEvent> items,
-                        LayoutInflater layoutInflater) {
+                 @NonNull List<BaseEvent> items,
+                 LayoutInflater layoutInflater) {
         this.mHost = host;
         this.mItems = items;
         this.mLayoutInflater = layoutInflater;
     }
 
-    void swapItem(List<BaseEvent> items){
+    void swapItem(List<BaseEvent> items) {
         mItems = items;
         notifyDataSetChanged();
     }

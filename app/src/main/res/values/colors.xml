@@ -56,4 +56,6 @@
     <!-- text (most text uses material theme colours) -->
     <color name="hint_disabled_dark">#43000000</color> <!-- 26% black -->
     <color name="text_on_accent">#8f000000</color>
+
+    <color name="tag_background">#f45a8c65</color>
 </resources>
