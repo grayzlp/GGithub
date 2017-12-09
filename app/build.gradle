@@ -61,6 +61,7 @@ dependencies {
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     implementation "com.google.guava:guava:${versions.guava}"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
     // Glide
     implementation "com.github.bumptech.glide:glide:${versions.glide}"
