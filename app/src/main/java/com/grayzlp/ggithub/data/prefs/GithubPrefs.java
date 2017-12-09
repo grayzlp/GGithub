@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -20,13 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Storing github user state.
- *
+ * <p>
  * TODO Take care of the case when user revoke the access token!
  */
 
@@ -221,9 +223,17 @@ public class GithubPrefs {
     }
 
     private void createApi() {
-        final OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new AuthInterceptor(getAccessToken()))
-                .build();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .addInterceptor(new AuthInterceptor(getAccessToken()));
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(interceptor);
+        }
+        final OkHttpClient client = builder.build();
+
+
         final Gson gson = new GsonBuilder()
                 .setDateFormat(GithubService.DATE_FORMAT)
                 .registerTypeAdapter(BaseEvent.class, new BaseEventDeserializer())

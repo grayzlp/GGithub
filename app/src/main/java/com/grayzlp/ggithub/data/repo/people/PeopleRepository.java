@@ -2,6 +2,7 @@ package com.grayzlp.ggithub.data.repo.people;
 
 
 import com.grayzlp.ggithub.data.Remote;
+import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class PeopleRepository implements PeopleDataSource {
 
     private boolean mFollowerCacheIsDirty;
     private boolean mFollowingCacheIsDirty;
-    private List<User> mFollowerCaches;
-    private List<User> mFollowingCaches;
+    private List<SimpleUser> mFollowerCaches;
+    private List<SimpleUser> mFollowingCaches;
 
     @Inject
     PeopleRepository(@Remote PeopleDataSource remote) {
@@ -28,7 +29,7 @@ public class PeopleRepository implements PeopleDataSource {
 
 
     @Override
-    public Flowable<List<User>> getFollowers() {
+    public Flowable<List<SimpleUser>> getFollowers() {
         if (mFollowerCaches != null && !mFollowerCacheIsDirty) {
             return Flowable.just(mFollowerCaches);
         }
@@ -39,7 +40,7 @@ public class PeopleRepository implements PeopleDataSource {
     }
 
     @Override
-    public Flowable<List<User>> getFollowing() {
+    public Flowable<List<SimpleUser>> getFollowing() {
         if (mFollowingCaches != null && !mFollowingCacheIsDirty) {
             return Flowable.just(mFollowingCaches);
         }

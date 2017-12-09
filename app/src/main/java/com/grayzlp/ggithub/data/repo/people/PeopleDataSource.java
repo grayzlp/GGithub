@@ -1,5 +1,6 @@
 package com.grayzlp.ggithub.data.repo.people;
 
+import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
 
 import java.util.List;
@@ -12,9 +13,9 @@ import io.reactivex.Flowable;
 
 public interface PeopleDataSource {
 
-    Flowable<List<User>> getFollowers();
+    Flowable<List<SimpleUser>> getFollowers();
 
-    Flowable<List<User>> getFollowing();
+    Flowable<List<SimpleUser>> getFollowing();
 
     void refresh();
 }

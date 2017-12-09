@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/z_card_view"
+    android:layout_margin="@dimen/spacing_normal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.grayzlp.ggithub.ui.widget.CircularImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_size_large"
+            android:layout_height="@dimen/avatar_size_large"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/spacing_large"/>
+
+
+        <ImageView
+            android:id="@+id/more_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_action_menu"/>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"
+            android:textSize="12sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatar"
+            android:maxLines="1"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

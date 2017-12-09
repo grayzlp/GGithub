@@ -3,6 +3,7 @@ package com.grayzlp.ggithub.data.api;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.model.feed.Feeds;
 import com.grayzlp.ggithub.data.model.repo.Starred;
+import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
 
 import java.util.List;
@@ -71,16 +72,16 @@ public interface GithubService {
                             @Path("repo") String repo);
 
     @GET("/users/{username}/followers")
-    Flowable<List<User>> listUsersFollowers(@Path("username") String username);
+    Flowable<List<SimpleUser>> listUsersFollowers(@Path("username") String username);
 
-    @GET("/users/followers")
-    Flowable<List<User>> listCurrentUserFollowers();
+    @GET("/user/followers")
+    Flowable<List<SimpleUser>> listCurrentUserFollowers();
 
     @GET("/users/{username}/following")
-    Flowable<List<User>> listUsersFollowing(@Path("username") String username);
+    Flowable<List<SimpleUser>> listUsersFollowing(@Path("username") String username);
 
-    @GET("/users/following")
-    Flowable<List<User>> listCurrentUserFollowing();
+    @GET("/user/following")
+    Flowable<List<SimpleUser>> listCurrentUserFollowing();
 
     @PUT("/user/following/{username}")
     Flowable<Void> followUser(@Path("username") String username);

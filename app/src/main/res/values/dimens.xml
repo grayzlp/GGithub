@@ -12,6 +12,7 @@
 
 
     <dimen name="z_app_bar">4dp</dimen>
+    <dimen name="z_card_view">8dp</dimen>
 
 
     <dimen name="logo_size">128dp</dimen>
