@@ -23,7 +23,6 @@ import com.bumptech.glide.util.ViewPreloadSizeProvider;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.di.ActivityScoped;
-import com.grayzlp.ggithub.util.LogUtils;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import java.util.Collections;
@@ -34,8 +33,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 @ActivityScoped
 public class EventFragment extends DaggerFragment implements EventContract.View {
@@ -113,9 +110,9 @@ public class EventFragment extends DaggerFragment implements EventContract.View 
 
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         mPresenter.dropView();
-        super.onDestroy();
+        super.onStop();
     }
 
     @Override
