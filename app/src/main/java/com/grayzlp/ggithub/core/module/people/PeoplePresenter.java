@@ -1,9 +1,6 @@
 package com.grayzlp.ggithub.core.module.people;
 
-import android.util.Log;
-
 import com.google.common.base.Preconditions;
-import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.repo.people.PeopleRepository;
 import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.util.LogUtils;
@@ -70,10 +67,13 @@ public class PeoplePresenter implements PeopleContract.Presenter {
                 .subscribe(
                         followers -> {
                             mView.showLoadingIndicator(false);
-                            mView.showPeople(followers);
+                            if (followers.isEmpty()) {
+                                mView.showNoData();
+                            } else {
+                                mView.showPeople(followers);
+                            }
                         },
                         error -> {
-                            LogUtils.LOGD(TAG, Arrays.toString(error.getStackTrace()));
                             mView.showLoadingError();
                             mView.showLoadingIndicator(false);
                         }
@@ -95,9 +95,13 @@ public class PeoplePresenter implements PeopleContract.Presenter {
                 .subscribeOn(mProvider.io())
                 .observeOn(mProvider.ui())
                 .subscribe(
-                        followers -> {
+                        followings -> {
                             mView.showLoadingIndicator(false);
-                            mView.showPeople(followers);
+                            if (followings.isEmpty()) {
+                                mView.showNoData();
+                            } else {
+                                mView.showPeople(followings);
+                            }
                         },
                         error -> {
                             mView.showLoadingError();

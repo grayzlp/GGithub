@@ -1,6 +1,7 @@
 package com.grayzlp.ggithub.core.module.star;
 
 
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -32,16 +33,10 @@ public class StarFragment extends DaggerFragment implements StarContract.View{
     @Inject
     StarContract.Presenter mPresenter;
 
-    @BindView(R.id.refresh)
-    SwipeRefreshLayout mRefresh;
-    @BindView(R.id.stars_list)
-    RecyclerView mStarsList;
-    @BindView(R.id.loading)
-    ProgressBar mLoading;
-    @BindView(R.id.error)
-    ImageView mErrorView;
-    @BindView(R.id.empty)
-    View mEmptyView;
+    @BindView(R.id.refresh) SwipeRefreshLayout mRefresh;
+    @BindView(R.id.stars_list) RecyclerView mStarsList;
+    @BindView(R.id.error) ImageView mErrorView;
+    @BindView(R.id.empty) View mEmptyView;
 
     private LayoutInflater mInflater;
 
@@ -98,19 +93,30 @@ public class StarFragment extends DaggerFragment implements StarContract.View{
 
     @Override
     public void showLoadingError() {
+        mStarsList.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mEmptyView.setVisibility(View.GONE);
 
+        AnimatedVectorDrawable avd = (AnimatedVectorDrawable)
+                getContext().getDrawable(R.drawable.avd_no_connection);
+        if (avd != null) {
+            mErrorView.setImageDrawable(avd);
+            avd.start();
+        }
     }
 
     @Override
     public void showNoStar() {
-
+        mStarsList.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showStar(List<Starred> starreds) {
-        mLoading.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
         mStarsList.setVisibility(View.VISIBLE);
+        mEmptyView.setVisibility(View.GONE);
 
         if (mAdapter == null) {
             mAdapter = new StarAdapter(getActivity(), starreds, mInflater);

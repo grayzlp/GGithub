@@ -1,5 +1,6 @@
 package com.grayzlp.ggithub.core.module.people;
 
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.TransitionRes;
@@ -139,6 +140,13 @@ public class PeopleFragment extends DaggerFragment
         mSwitchFab.setVisibility(View.GONE);
         mResultsScrim.setVisibility(View.GONE);
         mConfirmContainer.setVisibility(View.GONE);
+
+        AnimatedVectorDrawable avd = (AnimatedVectorDrawable)
+                getContext().getDrawable(R.drawable.avd_no_connection);
+        if (avd != null) {
+            mErrorView.setImageDrawable(avd);
+            avd.start();
+        }
     }
 
     @Override
