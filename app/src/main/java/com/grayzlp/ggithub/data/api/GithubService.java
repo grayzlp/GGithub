@@ -2,6 +2,7 @@ package com.grayzlp.ggithub.data.api;
 
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.model.feed.Feeds;
+import com.grayzlp.ggithub.data.model.gist.Gist;
 import com.grayzlp.ggithub.data.model.repo.Starred;
 import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
@@ -88,6 +89,9 @@ public interface GithubService {
 
     @DELETE("/user/following/{username}")
     Flowable<Void> unfollowUser(@Path("username") String username);
+
+    @GET("/gists")
+    Flowable<List<Gist>> listCurrentGists();
 
 
 }

@@ -1,19 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:transitionGroup="false">
 
-    <TextView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gist_list"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/empty"
+        layout="@layout/no_content"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.DeviceDefault.Large"
-        android:layout_centerInParent="true"
-        android:text="@string/to_be_developed">
+        android:layout_gravity="center"
+        android:src="@drawable/no_connection"
+        android:visibility="gone" />
 
-    </TextView>
-
-</RelativeLayout>
-
-
+</FrameLayout>

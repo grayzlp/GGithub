@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:andriod="http://schemas.android.com/apk/res/android"
+    andriod:layout_height="wrap_content"
+    andriod:layout_width="match_parent"
+    andriod:outlineProvider="bounds"
+    andriod:orientation="vertical">
+
+    <TextView
+        andriod:id="@+id/owner"
+        andriod:padding="@dimen/padding_normal"
+        andriod:layout_width="match_parent"
+        andriod:layout_height="wrap_content"
+        andriod:textAppearance="@android:style/TextAppearance.Material.Title"/>
+
+    <TextView
+        andriod:id="@+id/description"
+        andriod:padding="@dimen/padding_normal"
+        andriod:layout_width="match_parent"
+        andriod:layout_height="wrap_content"
+        andriod:textAppearance="@android:style/TextAppearance.Material.Body2" />
+
+</LinearLayout>
