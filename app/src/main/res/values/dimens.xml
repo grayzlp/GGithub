@@ -13,6 +13,7 @@
 
     <dimen name="z_app_bar">4dp</dimen>
     <dimen name="z_card_view">8dp</dimen>
+    <dimen name="z_fab">6dp</dimen>
 
 
     <dimen name="logo_size">128dp</dimen>
@@ -20,6 +21,11 @@
     <dimen name="avatar_size_normal">48dp</dimen>
     <dimen name="avatar_size_small">48dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
+
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_radius">28dp</dimen>
+
+    <dimen name="touch_raise">6dp</dimen>
 
 
 </resources>

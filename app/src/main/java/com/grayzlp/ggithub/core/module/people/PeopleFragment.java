@@ -2,13 +2,21 @@ package com.grayzlp.ggithub.core.module.people;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.TransitionRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionManager;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -24,6 +32,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.android.support.DaggerFragment;
 
 @ActivityScoped
@@ -34,21 +43,31 @@ public class PeopleFragment extends DaggerFragment
 
     @Inject
     PeopleContract.Presenter mPresenter;
-
     private LayoutInflater mInflater;
-
     private PeopleAdapter mAdapter;
 
+    private SparseArray<Transition> transitionCache = new SparseArray<>();
+
+    @BindView(R.id.container)
+    FrameLayout mContainer;
     @BindView(R.id.refresh)
     SwipeRefreshLayout mRefresh;
     @BindView(R.id.people_list)
     RecyclerView mPeopleList;
-    @BindView(R.id.loading)
-    ProgressBar mLoading;
     @BindView(R.id.error)
     ImageView mErrorView;
     @BindView(R.id.empty)
     View mEmptyView;
+    @BindView(R.id.fab_switch)
+    ImageButton mSwitchFab;
+    @BindView(R.id.confirm_filter_container)
+    FrameLayout mConfirmContainer;
+    @BindView(R.id.results_scrim)
+    View mResultsScrim;
+    @BindView(R.id.show_followers)
+    CheckedTextView mShowFollowers;
+    @BindView(R.id.show_followings)
+    CheckedTextView mSHowFOllowings;
 
     @Inject
     public PeopleFragment() {
@@ -91,10 +110,19 @@ public class PeopleFragment extends DaggerFragment
 
             mPeopleList.setHasFixedSize(true);
             mPeopleList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+
+            TransitionManager.beginDelayedTransition(mContainer,
+                    getTransition(R.transition.show_people));
+            mPeopleList.setVisibility(View.VISIBLE);
+            mErrorView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.GONE);
+            mSwitchFab.setVisibility(View.VISIBLE);
+            mResultsScrim.setVisibility(View.GONE);
+            mConfirmContainer.setVisibility(View.GONE);
         } else {
             mAdapter.swapItem(users);
         }
-
     }
 
     @Override
@@ -104,7 +132,67 @@ public class PeopleFragment extends DaggerFragment
 
     @Override
     public void showLoadingError() {
-        LogUtils.LOGD(TAG, "showLoadingError");
-        // TODO
+        TransitionManager.beginDelayedTransition(mContainer, getTransition(R.transition.auto));
+        mPeopleList.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mEmptyView.setVisibility(View.GONE);
+        mSwitchFab.setVisibility(View.GONE);
+        mResultsScrim.setVisibility(View.GONE);
+        mConfirmContainer.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoData() {
+        TransitionManager.beginDelayedTransition(mContainer, getTransition(R.transition.auto));
+        mPeopleList.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.VISIBLE);
+        mSwitchFab.setVisibility(View.VISIBLE);
+        mResultsScrim.setVisibility(View.GONE);
+        mConfirmContainer.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.fab_switch)
+    protected void switchType() {
+        TransitionManager.beginDelayedTransition(mContainer,
+                getTransition(R.transition.people_show_switch));
+        mSwitchFab.setVisibility(View.INVISIBLE);
+        mConfirmContainer.setVisibility(View.VISIBLE);
+        mResultsScrim.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick({R.id.show_followings, R.id.show_followers})
+    protected void doSwitch(CheckedTextView checkedTextView) {
+        if (checkedTextView.equals(mShowFollowers)) {
+            mShowFollowers.setChecked(true);
+            mSHowFOllowings.setChecked(false);
+            mPresenter.setPeopleType(PeopleType.FOLLOWER);
+        } else if (checkedTextView.equals(mSHowFOllowings)) {
+            mShowFollowers.setChecked(false);
+            mSHowFOllowings.setChecked(true);
+            mPresenter.setPeopleType(PeopleType.FOLLOWING);
+        }
+    }
+
+
+    @OnClick({R.id.results_scrim, R.id.confirmed})
+    protected void hideSwitchConfirmation() {
+        if (mConfirmContainer.getVisibility() == View.VISIBLE) {
+            TransitionManager.beginDelayedTransition(
+                    mContainer, getTransition(R.transition.people_hide_switch));
+            mConfirmContainer.setVisibility(View.GONE);
+            mResultsScrim.setVisibility(View.GONE);
+            mSwitchFab.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    Transition getTransition(@TransitionRes int transitionId) {
+        Transition transition = transitionCache.get(transitionId);
+        if (transition == null) {
+            transition = TransitionInflater.from(getContext()).inflateTransition(transitionId);
+            transitionCache.append(transitionId, transition);
+        }
+        return transition;
     }
 }

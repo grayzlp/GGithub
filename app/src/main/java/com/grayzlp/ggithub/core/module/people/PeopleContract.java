@@ -18,6 +18,8 @@ public class PeopleContract {
 
         void showLoadingError();
 
+        void showNoData();
+
     }
 
     interface Presenter extends BasePresenter<View> {

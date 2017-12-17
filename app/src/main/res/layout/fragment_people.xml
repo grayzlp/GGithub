@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refresh"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:transitionGroup="false">
 
-    <RelativeLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,26 +15,106 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <ProgressBar
-        android:id="@+id/loading"
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/empty"
+        layout="@layout/no_content"
+        android:visibility="gone" />
+
+
+    <ImageView
+        android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:layout_gravity="center"
+        android:src="@drawable/no_connection"
+        android:visibility="gone" />
 
-        <include
-            android:id="@+id/empty"
-            layout="@layout/no_content"
-            android:visibility="gone"/>
+    <ImageButton
+        android:id="@+id/fab_switch"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:layout_marginEnd="@dimen/padding_normal"
+        android:background="@drawable/fab"
+        android:elevation="@dimen/z_fab"
+        android:src="@drawable/ic_filter"
+        android:stateListAnimator="@animator/raise"
+        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/no_connection"
-            android:visibility="gone"/>
 
-    </RelativeLayout>
+    <View
+        android:id="@+id/results_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scrim"
+        android:visibility="gone" />
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    <FrameLayout
+        android:id="@+id/confirm_filter_container"
+        android:layout_width="448dp"
+        android:layout_height="448dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:layout_marginEnd="@dimen/padding_normal"
+        android:background="@drawable/fab"
+        android:elevation="@dimen/z_fab"
+        android:theme="@style/ExpandedFabTheme"
+        android:translationX="196dp"
+        android:translationY="196dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="252dp"
+            android:layout_height="252dp"
+            android:layout_gravity="start|top"
+            android:gravity="bottom|end"
+            android:orientation="vertical">
+
+            <CheckedTextView
+                android:id="@+id/show_followers"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:drawableEnd="?android:listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/spacing_normal"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/spacing_normal"
+                android:paddingEnd="12dp"
+                android:paddingTop="@dimen/spacing_normal"
+                android:text="@string/show_followers"
+                android:textAppearance="@android:style/TextAppearance.Material.Body2" />
+
+            <CheckedTextView
+                android:id="@+id/show_followings"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:drawableEnd="?android:listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/spacing_normal"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/spacing_normal"
+                android:paddingEnd="12dp"
+                android:paddingTop="@dimen/spacing_normal"
+                android:text="@string/show_followings"
+                android:textAppearance="@android:style/TextAppearance.Material.Body2" />
+
+            <Button
+                android:id="@+id/confirmed"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_filter"
+                android:drawablePadding="@dimen/padding_normal"
+                android:padding="@dimen/padding_normal"
+                android:text="@string/confirm" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</FrameLayout>

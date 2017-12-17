@@ -27,4 +27,7 @@
     <string name="no_content">No content!</string>
     <string name="clear_success">Clear Success</string>
     <string name="to_be_developed">To Be Developed !!!</string>
+    <string name="show_followers">Show Followers</string>
+    <string name="show_followings">Show Followings</string>
+    <string name="confirm">Confirm</string>
 </resources>
