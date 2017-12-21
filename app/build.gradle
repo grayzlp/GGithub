@@ -35,7 +35,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '26.0.2'
 }
 
 repositories {
@@ -44,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
     implementation "com.android.support:support-v13:${versions.supportLibrary}"
     implementation "com.android.support:palette-v7:${versions.supportLibrary}"
     implementation "com.android.support:design:${versions.supportLibrary}"
