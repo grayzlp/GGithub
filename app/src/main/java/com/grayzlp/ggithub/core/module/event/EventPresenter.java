@@ -61,6 +61,7 @@ public class EventPresenter implements EventContract.Presenter {
                             mEventView.showEvents(events);
                         },
                         throwable -> {
+                            LogUtils.LOGD(TAG, throwable.toString());
                             mEventView.showLoadingIndicator(false);
                             mEventView.showLoadingError();
                         }
