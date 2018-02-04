@@ -2,6 +2,7 @@ package com.grayzlp.ggithub.core.module.event;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -14,11 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grayzlp.ggithub.R;
+import com.grayzlp.ggithub.core.activity.UserActivity;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.model.event.inheritance.WatchEvent;
+import com.grayzlp.ggithub.util.LogUtils;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,25 +33,27 @@ import butterknife.ButterKnife;
 
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final Activity mHost;
-    private List<BaseEvent> mItems;
-    private final LayoutInflater mLayoutInflater;
+    private static final String TAG = LogUtils.makeLogTag(EventAdapter.class);
+
+    private final Activity host;
+    private List<BaseEvent> items;
+    private final LayoutInflater layoutInflater;
 
     EventAdapter(Activity host,
                  @NonNull List<BaseEvent> items,
                  LayoutInflater layoutInflater) {
-        this.mHost = host;
-        this.mItems = items;
-        this.mLayoutInflater = layoutInflater;
+        this.host = host;
+        this.items = items;
+        this.layoutInflater = layoutInflater;
     }
 
     void swapItem(List<BaseEvent> items) {
-        mItems = items;
+        this.items = items;
         notifyDataSetChanged();
     }
 
     List<BaseEvent> getItem() {
-        return mItems;
+        return items;
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -69,17 +75,22 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final EventHolder holder = new EventHolder(mLayoutInflater.inflate
+        final EventHolder holder = new EventHolder(layoutInflater.inflate
                 (R.layout.event_list_item, parent, false));
-        // TODO add callback
+        holder.avatar.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.setClass(host, UserActivity.class);
+            BaseEvent event = getItem().get(holder.getAdapterPosition());
+            UserActivity.launch(host, event.actor.login);
+        });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EventHolder eventHolder = (EventHolder) holder;
-        BaseEvent event = mItems.get(position);
-        GlideApp.with(mHost)
+        BaseEvent event = items.get(position);
+        GlideApp.with(host)
                 .load(event.actor.avatar_url)
                 .placeholder(R.drawable.portrait_placeholder)
                 .into(eventHolder.avatar);
@@ -89,6 +100,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 System.currentTimeMillis(),
                 DateUtils.SECOND_IN_MILLIS)
                 .toString().toLowerCase());
+        // TODO Fix event detail
         eventHolder.detail.setText("Faker detail");
 
         if (event instanceof WatchEvent) {
@@ -101,7 +113,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return items.size();
     }
 
     static class EventHolder extends RecyclerView.ViewHolder {

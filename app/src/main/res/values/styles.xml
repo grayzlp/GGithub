@@ -15,6 +15,15 @@
         <item name="drawerArrowStyle">@style/Widget.GGithub.DrawerArrowStyle</item>
     </style>
 
+    <style name="GGithub.UserActivity" parent="GGithub" >
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 
     <!-- text appearance style -->
     <style name="TextAppearance.DarkButton" parent="@android:style/TextAppearance.Material.Widget.Button">
@@ -57,7 +66,9 @@
     <style name="Widget.GGithub" parent="android:Widget" />
 
     <style name="Widget.GGithub.Toolbar">
-        <item name="android:titleTextAppearance">@android:style/TextAppearance.Material.Widget.ActionBar.Title</item>
+        <item name="android:titleTextAppearance">
+            @android:style/TextAppearance.Material.Widget.ActionBar.Title
+        </item>
         <item name="android:background">@color/background_dark</item>
         <item name="android:elevation">@dimen/z_app_bar</item>
         <item name="android:theme">@style/GGithubDarkOverlay</item>
@@ -77,6 +88,12 @@
         <item name="android:textColorPrimary">@color/dark_icon</item>
         <item name="android:textColorPrimaryDisableOnly">@color/dark_icon</item>
         <item name="android:colorControlActivated">@color/dark_icon</item>
+    </style>
+
+    <style name="TextAppearance.UserBio" parent="@android:style/TextAppearance.Material.Subhead">
+        <item name="android:textColor">@color/text_secondary_dark</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeightHint">24sp</item>
     </style>
 
 

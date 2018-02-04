@@ -17,5 +17,7 @@ public interface PeopleDataSource {
 
     Flowable<List<SimpleUser>> getFollowing();
 
+    Flowable<User> getUser(String userName);
+
     void refresh();
 }

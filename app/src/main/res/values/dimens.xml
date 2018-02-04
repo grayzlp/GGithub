@@ -17,6 +17,7 @@
 
 
     <dimen name="logo_size">128dp</dimen>
+    <dimen name="avatar_size_xlarge">96dp</dimen>
     <dimen name="avatar_size_large">72dp</dimen>
     <dimen name="avatar_size_normal">48dp</dimen>
     <dimen name="avatar_size_small">48dp</dimen>
@@ -26,6 +27,7 @@
     <dimen name="fab_radius">28dp</dimen>
 
     <dimen name="touch_raise">6dp</dimen>
+    <dimen name="user_scrim_height">300dp</dimen>
 
 
 </resources>

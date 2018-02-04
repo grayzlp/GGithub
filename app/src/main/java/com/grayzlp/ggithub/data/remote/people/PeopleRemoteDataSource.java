@@ -36,6 +36,11 @@ public class PeopleRemoteDataSource implements PeopleDataSource {
     }
 
     @Override
+    public Flowable<User> getUser(String userName) {
+        return mPrefs.getApi().getUser(userName);
+    }
+
+    @Override
     public void refresh() {
         // no-op
     }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grayzlp.ggithub.core.activity.UserActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/user.toolbar.container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@color/primary"
+                app:layout_collapseMode="parallax" />
+
+            <FrameLayout
+                android:id="@+id/user.framelayout.title"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@color/background_dark"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.3">
+
+                <TextView
+                    android:id="@+id/user.username.expanded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="@dimen/spacing_normal"
+                    android:gravity="bottom|center"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    tools:text="grayzlp" />
+
+            </FrameLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.grayzlp.ggithub.ui.widget.BaselineGridTextView
+                android:id="@+id/player_bio"
+                style="@style/TextAppearance.UserBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/padding_normal"
+                android:paddingStart="@dimen/padding_normal"
+                android:paddingTop="@dimen/padding_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="To be or not to be." />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main.toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@android:color/holo_red_dark"
+        app:layout_anchor="@id/user.framelayout.title"
+        app:layout_anchorGravity="top"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title="">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="@dimen/avatar_size_small"
+                android:layout_height="@dimen/avatar_size_small" />
+
+            <TextView
+                android:id="@+id/user.toolbar.title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:text="grayzlp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <com.grayzlp.ggithub.ui.widget.CircularImageView
+        android:id="@+id/user.avatar"
+        android:layout_width="@dimen/avatar_size_xlarge"
+        android:layout_height="@dimen/avatar_size_xlarge"
+        android:layout_gravity="center_horizontal"
+        app:finalHeight="@dimen/avatar_size_small"
+        app:layout_behavior="com.grayzlp.ggithub.ui.behavior.AvatarImageBehavior" />
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+

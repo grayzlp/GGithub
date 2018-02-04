@@ -28,8 +28,8 @@ public interface GithubService {
     int PER_PAGE_MAX = 100;
     int PER_PAGE_DEFAULT = 30;
 
-    @GET("user/{username}")
-    Call<User> getUser(@Path("username") String username);
+    @GET("users/{username}")
+    Flowable<User> getUser(@Path("username") String username);
 
     @GET("user")
     Call<User> getAuthenticatedUser();
