@@ -11,6 +11,8 @@ import android.view.View;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.ui.widget.CircularImageView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A coordinator layout avatar image view behavior.
  * Adapt from https://github.com/saulmm/CoordinatorBehaviorExample.
@@ -18,7 +20,7 @@ import com.grayzlp.ggithub.ui.widget.CircularImageView;
  */
 
 @SuppressWarnings("unused")
-public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircularImageView> {
+public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageView> {
 
     private final static float MIN_AVATAR_PERCENTAGE_SIZE   = 0.3f;
     private final static int EXTRA_FINAL_AVATAR_PADDING     = 80;
@@ -50,14 +52,14 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircularImag
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent,
-                                   CircularImageView child,
+                                   CircleImageView child,
                                    View dependency) {
         return dependency instanceof Toolbar;
     }
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent,
-                                          CircularImageView child,
+                                          CircleImageView child,
                                           View dependency) {
         maybeInitProperties(child, dependency);
 
@@ -97,7 +99,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircularImag
     }
 
     @SuppressLint("PrivateResource")
-    private void maybeInitProperties(CircularImageView child, View dependency) {
+    private void maybeInitProperties(CircleImageView child, View dependency) {
         if (startYPosition == 0)
             startYPosition = (int) (dependency.getY());
 

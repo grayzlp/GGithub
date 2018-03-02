@@ -132,7 +132,7 @@ public class SignInActivity extends AppCompatActivity {
                     .progress(true, 0)
                     .build();
         }
-            loading.show();
+        loading.show();
     }
 
     private void showSignIn() {

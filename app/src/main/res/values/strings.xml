@@ -30,4 +30,12 @@
     <string name="show_followers">Show Followers</string>
     <string name="show_followings">Show Followings</string>
     <string name="confirm">Confirm</string>
+    <string name="repos">Repos</string>
+    <string name="follows">Follows</string>
+    <string name="following">Folllowings</string>
+    <string name="name">Name</string>
+    <string name="location">Location</string>
+    <string name="email">Email</string>
+    <string name="url">Url</string>
+    <string name="joined">Joined</string>
 </resources>

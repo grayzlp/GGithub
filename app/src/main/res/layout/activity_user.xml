@@ -17,33 +17,52 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <View
+            <ImageView
+                android:id="@+id/user.avatar.background"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@color/primary"
-                app:layout_collapseMode="parallax" />
+                android:scaleType="centerCrop"
+                android:tint="#11000000"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.9" />
 
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/user.framelayout.title"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="56dp"
                 android:layout_gravity="center_horizontal|bottom"
                 android:background="@color/background_dark"
                 app:layout_collapseMode="parallax"
+                android:orientation="vertical"
                 app:layout_collapseParallaxMultiplier="0.3">
 
                 <TextView
                     android:id="@+id/user.username.expanded"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_marginBottom="@dimen/spacing_normal"
                     android:gravity="bottom|center"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
                     tools:text="grayzlp" />
 
-            </FrameLayout>
+                <com.grayzlp.ggithub.ui.widget.BaselineGridTextView
+                    android:id="@+id/player_bio"
+                    style="@style/TextAppearance.UserBio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="To be or not to be." />
+
+
+            </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -51,7 +70,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -59,30 +78,221 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.grayzlp.ggithub.ui.widget.BaselineGridTextView
-                android:id="@+id/player_bio"
-                style="@style/TextAppearance.UserBio"
+            <LinearLayout
+                android:id="@+id/overview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/padding_normal"
-                android:paddingStart="@dimen/padding_normal"
-                android:paddingTop="@dimen/padding_normal"
+                android:layout_height="56dp"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="To be or not to be." />
+                app:layout_constraintTop_toTopOf="parent">
 
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/repos_count"
+                        style="@style/TextAppearance.UserOverViewData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/TextAppearance.UserOverViewDataTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repos" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/follows_count"
+                        style="@style/TextAppearance.UserOverViewData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/TextAppearance.UserOverViewDataTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/follows" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/followings_count"
+                        style="@style/TextAppearance.UserOverViewData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/TextAppearance.UserOverViewDataTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/following" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/gists_count"
+                        style="@style/TextAppearance.UserOverViewData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/TextAppearance.UserOverViewDataTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gists" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/overview">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <TextView
+                        style="@style/TextAppearance.UserDetailDataTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name" />
+
+                    <TextView
+                        android:id="@+id/user.detail_name"
+                        style="@style/TextAppearance.UserDetailData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <TextView
+                        style="@style/TextAppearance.UserDetailDataTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location" />
+
+                    <TextView
+                        android:id="@+id/user.location"
+                        style="@style/TextAppearance.UserDetailData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <TextView
+                        style="@style/TextAppearance.UserDetailDataTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email" />
+
+                    <TextView
+                        android:id="@+id/user.email"
+                        style="@style/TextAppearance.UserDetailData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <TextView
+                        style="@style/TextAppearance.UserDetailDataTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/url" />
+
+                    <TextView
+                        android:id="@+id/user.url"
+                        style="@style/TextAppearance.UserDetailData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <TextView
+                        style="@style/TextAppearance.UserDetailDataTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/joined" />
+
+                    <TextView
+                        android:id="@+id/user.joined"
+                        style="@style/TextAppearance.UserDetailData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/user.contribution.chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:scaleType="centerInside"
+                app:layout_constraintTop_toBottomOf="@id/detail" />
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
 
+    <!-- set to gone now -->
     <android.support.v7.widget.Toolbar
+        android:visibility="invisible"
         android:id="@+id/main.toolbar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@android:color/holo_red_dark"
+        android:layout_height="0dp"
+        android:background="@color/primary_dark"
         app:layout_anchor="@id/user.framelayout.title"
         app:layout_anchorGravity="top"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
@@ -103,18 +313,20 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:gravity="center_vertical"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/holo_blue_bright"
                 android:textSize="20sp"
                 tools:text="grayzlp" />
 
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
-    <com.grayzlp.ggithub.ui.widget.CircularImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user.avatar"
         android:layout_width="@dimen/avatar_size_xlarge"
         android:layout_height="@dimen/avatar_size_xlarge"
         android:layout_gravity="center_horizontal"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="1dp"
         app:finalHeight="@dimen/avatar_size_small"
         app:layout_behavior="com.grayzlp.ggithub.ui.behavior.AvatarImageBehavior" />
 
