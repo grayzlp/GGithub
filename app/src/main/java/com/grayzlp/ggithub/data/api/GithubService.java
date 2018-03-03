@@ -3,6 +3,7 @@ package com.grayzlp.ggithub.data.api;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.model.feed.Feeds;
 import com.grayzlp.ggithub.data.model.gist.Gist;
+import com.grayzlp.ggithub.data.model.repo.Repository;
 import com.grayzlp.ggithub.data.model.repo.Starred;
 import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
@@ -92,6 +93,11 @@ public interface GithubService {
 
     @GET("/gists")
     Flowable<List<Gist>> listCurrentGists();
+
+
+    // Repos
+    @GET("/users/{username}/repos")
+    Flowable<List<Repository>> listUserRepos(@Path("username") String username);
 
 
 }

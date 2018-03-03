@@ -2,5 +2,6 @@
 <resources>
 
     <string name="path_filter">M20,36h8v-4h-8V36z M6,12v4h36v-4H6z M12,26h24v-4H12V26z</string>
+    <string name="path_add">M38,26H26v12h-4V26H10v-4h12V10h4v12h12V26z</string>
 
 </resources>

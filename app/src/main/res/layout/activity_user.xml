@@ -91,6 +91,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <RelativeLayout
+                    android:id="@+id/repos_count_container"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -111,6 +112,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/follow_count_container"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -131,6 +133,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/following_count_container"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -151,6 +154,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/gists_count_container"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

@@ -73,7 +73,6 @@ dependencies {
         transitive = false
     }
 
-
     // Dagger
     implementation "com.google.dagger:dagger:${versions.dagger}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"

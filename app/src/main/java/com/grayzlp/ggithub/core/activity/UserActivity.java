@@ -2,7 +2,6 @@ package com.grayzlp.ggithub.core.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -10,13 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.core.module.user.UserContract;
 import com.grayzlp.ggithub.data.model.user.User;
-import com.grayzlp.ggithub.util.GitHubChartAPI;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import javax.inject.Inject;
@@ -62,7 +58,7 @@ public class UserActivity extends DaggerAppCompatActivity implements UserContrac
         setContentView(R.layout.activity_user);
         ButterKnife.bind(this);
         refreshFromIntent();
-
+        bindListener();
     }
 
     private void refreshFromIntent() {
@@ -122,7 +118,18 @@ public class UserActivity extends DaggerAppCompatActivity implements UserContrac
             userBio.setVisibility(View.VISIBLE);
             userBio.setText(user.bio);
         }
+    }
 
+    private void bindListener() {
+        findViewById(R.id.repos_count_container).setOnClickListener(v -> {
+            RepositoriesListActivity.launch(this, userName);
+        });
+        findViewById(R.id.follow_count_container)
+                .setOnClickListener(v ->
+                        FollowListActivity.launch(this, userName, true));
+        findViewById(R.id.following_count_container).
+                setOnClickListener(v ->
+                        FollowListActivity.launch(this, userName, false));
     }
 
     @Override

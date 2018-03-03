@@ -2,6 +2,7 @@ package com.grayzlp.ggithub.data.remote.people;
 
 import android.content.Context;
 
+import com.grayzlp.ggithub.data.model.repo.Repository;
 import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
@@ -36,8 +37,23 @@ public class PeopleRemoteDataSource implements PeopleDataSource {
     }
 
     @Override
+    public Flowable<List<SimpleUser>> getUserFollowers(String userName) {
+        return mPrefs.getApi().listUsersFollowers(userName);
+    }
+
+    @Override
+    public Flowable<List<SimpleUser>> getUserFollowing(String userName) {
+        return mPrefs.getApi().listUsersFollowing(userName);
+    }
+
+    @Override
     public Flowable<User> getUser(String userName) {
         return mPrefs.getApi().getUser(userName);
+    }
+
+    @Override
+    public Flowable<List<Repository>> getRepositories(String userName) {
+        return mPrefs.getApi().listUserRepos(userName);
     }
 
     @Override

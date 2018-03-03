@@ -4,6 +4,7 @@ package com.grayzlp.ggithub.data.repo.people;
 import android.text.TextUtils;
 
 import com.grayzlp.ggithub.data.Remote;
+import com.grayzlp.ggithub.data.model.repo.Repository;
 import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
 
@@ -21,8 +22,10 @@ public class PeopleRepository implements PeopleDataSource {
 
     private boolean followerCacheIsDirty;
     private boolean followingCacheIsDirty;
+    private boolean reposCacheIsDirty;
     private List<SimpleUser> followerCaches;
     private List<SimpleUser> followingCaches;
+    private List<Repository> repositoryCaches;
     private User userCache;
     private String userNameCache;
 
@@ -41,6 +44,16 @@ public class PeopleRepository implements PeopleDataSource {
         return remoteDataSource.getFollowers()
                 .doOnNext(followers -> followerCaches = followers)
                 .doOnComplete(() -> followerCacheIsDirty = false);
+    }
+
+    @Override
+    public Flowable<List<SimpleUser>> getUserFollowers(String userName) {
+        return remoteDataSource.getUserFollowers(userName);
+    }
+
+    @Override
+    public Flowable<List<SimpleUser>> getUserFollowing(String userName) {
+        return remoteDataSource.getUserFollowing(userName);
     }
 
     @Override
@@ -63,6 +76,18 @@ public class PeopleRepository implements PeopleDataSource {
                 .doOnNext(user -> {
                     userCache = user;
                     userNameCache = userName;
+                });
+    }
+
+    @Override
+    public Flowable<List<Repository>> getRepositories(String userName) {
+        if (repositoryCaches != null && !reposCacheIsDirty) {
+            return Flowable.just(repositoryCaches);
+        }
+        return remoteDataSource.getRepositories(userName)
+                .doOnNext(repos -> {
+                    repositoryCaches = repos;
+                    reposCacheIsDirty = false;
                 });
     }
 

@@ -36,9 +36,14 @@
                     android:scheme="ggithub" />
             </intent-filter>
         </activity>
-        <activity android:name=".core.activity.UserActivity"
+        <activity
+            android:name=".core.activity.UserActivity"
             android:exported="true"
-            android:theme="@style/GGithub.UserActivity"/>
+            android:theme="@style/GGithub.UserActivity" />
+        <activity
+            android:name=".core.activity.RepositoriesListActivity"
+            android:theme="@style/GGithub.RepoActivity" />
+        <activity android:name=".core.activity.FollowListActivity"></activity>
     </application>
 
 </manifest>
