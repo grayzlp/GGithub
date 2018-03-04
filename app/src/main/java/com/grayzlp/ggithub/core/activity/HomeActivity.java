@@ -94,21 +94,31 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
     private void setupDrawer() {
         navigation.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.drawer_events:
-                case R.id.drawer_stars:
-                case R.id.drawer_people:
-                case R.id.drawer_gists:
-                    selectPageByMenu(item);
-                    break;
-                case R.id.drawer_sign_out:
-                    signOut();
-                    break;
-                case R.id.drawer_clear:
-                    clearCache();
-                    break;
+            drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 
-            }
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    drawer.removeDrawerListener(this);
+                    switch (item.getItemId()) {
+                        case R.id.drawer_events:
+                        case R.id.drawer_stars:
+                        case R.id.drawer_people:
+                        case R.id.drawer_gists:
+                            selectPageByMenu(item);
+                            break;
+                        case R.id.drawer_sign_out:
+                            signOut();
+                            break;
+                        case R.id.drawer_clear:
+                            clearCache();
+                            break;
+                        case R.id.drawer_repos:
+                            RepositoriesListActivity.launch(HomeActivity.this, prefs.getUserName());
+                            break;
+
+                    }
+                }
+            });
             drawer.closeDrawers();
             return true;
         });
@@ -190,6 +200,8 @@ public class HomeActivity extends DaggerAppCompatActivity {
         username = header.findViewById(R.id.title_username);
         userEmail = header.findViewById(R.id.title_email);
         userAvatar = header.findViewById(R.id.avatar);
+        userAvatar.setOnClickListener(v ->
+                UserActivity.launch(HomeActivity.this, prefs.getUserName()));
 
         navigation.setCheckedItem(R.id.drawer_events);
     }

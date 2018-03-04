@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -66,6 +67,16 @@ public class FollowListActivity extends DaggerAppCompatActivity implements Follo
         refreshFromIntent();
         configureToolbar();
         configureRecyclerView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void configureRecyclerView() {
@@ -161,6 +172,8 @@ public class FollowListActivity extends DaggerAppCompatActivity implements Follo
                     .load(user.avatar_url)
                     .into(holder.avatar);
             holder.textView.setText(user.login);
+            holder.itemView.setOnClickListener(
+                    v -> UserActivity.launch(FollowListActivity.this, user.login));
         }
 
         @Override
