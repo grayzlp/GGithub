@@ -94,10 +94,13 @@ public interface GithubService {
     @GET("/gists")
     Flowable<List<Gist>> listCurrentGists();
 
-
     // Repos
     @GET("/users/{username}/repos")
     Flowable<List<Repository>> listUserRepos(@Path("username") String username);
+
+    @GET("/repos/{owner}/{repo}")
+    Flowable<Repository> getRepository(@Path("owner") String owner,
+                                       @Path("repo") String repo);
 
 
 }

@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grayzlp.ggithub.R;
+import com.grayzlp.ggithub.core.activity.RepositoryActivity;
 import com.grayzlp.ggithub.core.activity.UserActivity;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
+import com.grayzlp.ggithub.data.model.event.inheritance.ForkEvent;
 import com.grayzlp.ggithub.data.model.event.inheritance.WatchEvent;
+import com.grayzlp.ggithub.data.model.repo.Repository;
 import com.grayzlp.ggithub.util.LogUtils;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
@@ -102,6 +105,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .toString().toLowerCase());
         // TODO Fix event detail
         eventHolder.detail.setText("Faker detail");
+        eventHolder.detail.setOnClickListener(
+                v -> RepositoryActivity.launch(host, event.repo.name));
 
         if (event instanceof WatchEvent) {
             WatchEvent we = (WatchEvent) event;

@@ -1,6 +1,7 @@
 package com.grayzlp.ggithub.data.model.repo;
 
 import com.google.gson.annotations.SerializedName;
+import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.data.model.user.User;
 
 /**
@@ -11,7 +12,7 @@ public class Repository {
     public int id;
     public String name;
     public String full_name;
-    public User owner;
+    public SimpleUser owner;
     @SerializedName("private")
     public boolean _private;
     public String html_url;

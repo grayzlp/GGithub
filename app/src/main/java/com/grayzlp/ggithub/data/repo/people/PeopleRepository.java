@@ -92,6 +92,12 @@ public class PeopleRepository implements PeopleDataSource {
     }
 
     @Override
+    public Flowable<Repository> getRepository(String repo) {
+        return remoteDataSource.getRepository(repo);
+    }
+
+
+    @Override
     public void refresh() {
         followerCacheIsDirty = true;
         followingCacheIsDirty = true;

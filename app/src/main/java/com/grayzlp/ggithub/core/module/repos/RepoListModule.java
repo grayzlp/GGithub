@@ -6,9 +6,9 @@ import dagger.Binds;
 import dagger.Module;
 
 @Module
-public abstract class RepoModule {
+public abstract class RepoListModule {
 
     @ActivityScoped
     @Binds
-    abstract RepoContract.Presenter repoPresenter(RepoPresenter presenter);
+    abstract RepoListContract.Presenter repoListPresenter(RepoListPresenter presenter);
 }

@@ -1,4 +1,4 @@
-package com.grayzlp.ggithub.core.module.repos;
+package com.grayzlp.ggithub.core.module.repo;
 
 
 import com.grayzlp.ggithub.core.BasePresenter;
@@ -11,7 +11,7 @@ public class RepoContract {
 
     public interface View extends BaseView<RepoContract.Presenter> {
 
-        void showRepos(List<Repository> user);
+        void showRepo(Repository repository);
 
         void showLoadError();
 
@@ -19,6 +19,6 @@ public class RepoContract {
 
     public interface Presenter extends BasePresenter<RepoContract.View> {
 
-        void loadUserRepos(String username, boolean forceUpdate);
+        void loadRepos(String repo, boolean forceUpdate);
     }
 }

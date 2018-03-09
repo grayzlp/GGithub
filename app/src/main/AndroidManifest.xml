@@ -43,7 +43,8 @@
         <activity
             android:name=".core.activity.RepositoriesListActivity"
             android:theme="@style/GGithub.RepoActivity" />
-        <activity android:name=".core.activity.FollowListActivity"></activity>
+        <activity android:name=".core.activity.FollowListActivity" />
+        <activity android:name=".core.activity.RepositoryActivity"></activity>
     </application>
 
 </manifest>

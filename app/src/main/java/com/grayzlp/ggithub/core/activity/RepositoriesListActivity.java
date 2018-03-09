@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.grayzlp.ggithub.R;
-import com.grayzlp.ggithub.core.module.repos.RepoContract;
-import com.grayzlp.ggithub.core.module.repos.RepoPresenter;
+import com.grayzlp.ggithub.core.module.repos.RepoListContract;
+import com.grayzlp.ggithub.core.module.repos.RepoListPresenter;
 import com.grayzlp.ggithub.data.model.repo.Repository;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class RepositoriesListActivity extends DaggerAppCompatActivity implements RepoContract.View{
+public class RepositoriesListActivity extends DaggerAppCompatActivity implements RepoListContract.View{
 
     public static final String EXTRA_USER_NAME = "EXTRA_USER_NAME";
 
@@ -50,7 +50,7 @@ public class RepositoriesListActivity extends DaggerAppCompatActivity implements
     }
 
     @Inject
-    RepoPresenter repoPresenter;
+    RepoListPresenter repoListPresenter;
     private RepositoryAdapter adapter;
 
     @Override
@@ -89,14 +89,14 @@ public class RepositoriesListActivity extends DaggerAppCompatActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        repoPresenter.takeView(this);
-        repoPresenter.loadUserRepos(userName, true);
+        repoListPresenter.takeView(this);
+        repoListPresenter.loadUserRepos(userName, true);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        repoPresenter.dropView();
+        repoListPresenter.dropView();
     }
 
     private void refreshFromIntent() {

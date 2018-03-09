@@ -26,5 +26,7 @@ public interface PeopleDataSource {
 
     Flowable<List<Repository>> getRepositories(String userName);
 
+    Flowable<Repository> getRepository(String repo);
+
     void refresh();
 }

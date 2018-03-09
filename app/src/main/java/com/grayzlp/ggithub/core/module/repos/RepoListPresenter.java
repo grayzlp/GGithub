@@ -15,19 +15,19 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 @ActivityScoped
-public class RepoPresenter implements RepoContract.Presenter {
+public class RepoListPresenter implements RepoListContract.Presenter {
 
-    private static final String TAG = LogUtils.makeLogTag(RepoPresenter.class);
+    private static final String TAG = LogUtils.makeLogTag(RepoListPresenter.class);
 
     private PeopleRepository peopleRepository;
-    private RepoContract.View repoView;
+    private RepoListContract.View repoView;
 
     @NonNull
     private CompositeDisposable compositeDisposable;
     private final BaseSchedulerProvider scheduleProvider;
 
     @Inject
-    public RepoPresenter(PeopleRepository peopleRepository) {
+    public RepoListPresenter(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
 
         scheduleProvider = SchedulerProvider.getInstance();
@@ -35,7 +35,7 @@ public class RepoPresenter implements RepoContract.Presenter {
     }
 
     @Override
-    public void takeView(RepoContract.View view) {
+    public void takeView(RepoListContract.View view) {
         repoView = Preconditions.checkNotNull(view);
     }
 
