@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+    implementation "com.android.support.constraint:constraint-layout:${versions.constraintLayout}"
     implementation "com.android.support:support-v13:${versions.supportLibrary}"
     implementation "com.android.support:palette-v7:${versions.supportLibrary}"
     implementation "com.android.support:design:${versions.supportLibrary}"
@@ -61,14 +61,15 @@ dependencies {
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     implementation "com.google.guava:guava:${versions.guava}"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.loggingInterceptor}"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:${versions.glide}"
     annotationProcessor "com.github.bumptech.glide:compiler:${versions.glide}"
-    implementation "com.github.bumptech.glide:okhttp3-integration:${versions.glide}@aar"
-    implementation 'jp.wasabeef:glide-transformations:3.1.1'
-    compile("com.github.bumptech.glide:recyclerview-integration:4.3.0") {
+    implementation "com.github.bumptech.glide:okhttp3-integration:${versions.glide}"
+    implementation "jp.wasabeef:glide-transformations:${versions.glideTransformations}"
+
+    implementation("com.github.bumptech.glide:recyclerview-integration:${versions.glideRecyclerView}") {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
@@ -81,12 +82,12 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:${versions.dagger}"
 
     // UI
-    implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
+    implementation "com.afollestad.material-dialogs:core:${versions.materialDialog}"
 
     // Rx
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava}"
     implementation "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}"
 
     // Other
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation "de.hdodenhof:circleimageview:${versions.circleImageview}"
 }
