@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package com.grayzlp.ggithub.util;
+package com.grayzlp.ggithub.util
 
 /**
  * Borrowed from github.com/romannurik/muzei
  */
-public class MathUtils {
+object MathUtils {
 
-    private MathUtils() { }
-
-    public static float constrain(float min, float max, float v) {
-        return Math.max(min, Math.min(max, v));
+    fun constrain(min: Float, max: Float, v: Float): Float {
+        return Math.max(min, Math.min(max, v))
     }
 }

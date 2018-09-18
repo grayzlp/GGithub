@@ -142,7 +142,7 @@ public class ColorUtils {
             lightnessMultiplier = 1f - lightnessMultiplier;
         }
 
-        hsl[2] = MathUtils.constrain(0f, 1f, hsl[2] * lightnessMultiplier);
+        hsl[2] = MathUtils.INSTANCE.constrain(0f, 1f, hsl[2] * lightnessMultiplier);
         return android.support.v4.graphics.ColorUtils.HSLToColor(hsl);
     }
 
