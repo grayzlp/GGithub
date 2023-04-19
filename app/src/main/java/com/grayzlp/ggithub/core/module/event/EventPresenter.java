@@ -1,7 +1,7 @@
 package com.grayzlp.ggithub.core.module.event;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.common.base.Preconditions;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;

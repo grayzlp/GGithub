@@ -1,6 +1,6 @@
 package com.grayzlp.ggithub.core.module.repo;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.common.base.Preconditions;
 import com.grayzlp.ggithub.core.module.repos.RepoListPresenter;

@@ -3,13 +3,12 @@ package com.grayzlp.ggithub.ui.behavior;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.grayzlp.ggithub.R;
-import com.grayzlp.ggithub.ui.widget.CircularImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

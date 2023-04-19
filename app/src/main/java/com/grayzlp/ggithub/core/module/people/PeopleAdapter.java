@@ -2,7 +2,7 @@ package com.grayzlp.ggithub.core.module.people;
 
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.user.SimpleUser;
 import com.grayzlp.ggithub.ui.widget.CircularImageView;
-import com.grayzlp.ggithub.util.LogUtils;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import java.util.List;

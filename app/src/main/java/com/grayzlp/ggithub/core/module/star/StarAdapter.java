@@ -1,27 +1,22 @@
 package com.grayzlp.ggithub.core.module.star;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.repo.Starred;
-import com.grayzlp.ggithub.util.LogUtils;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

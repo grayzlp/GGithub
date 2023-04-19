@@ -3,12 +3,11 @@ package com.grayzlp.ggithub.core.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TabHost;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.grayzlp.ggithub.BuildConfig;
@@ -20,8 +19,6 @@ import com.grayzlp.ggithub.data.model.AccessToken;
 import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
 import com.grayzlp.ggithub.util.LogUtils;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

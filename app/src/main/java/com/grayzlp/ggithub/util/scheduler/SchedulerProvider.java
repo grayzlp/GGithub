@@ -1,6 +1,6 @@
 package com.grayzlp.ggithub.util.scheduler;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;

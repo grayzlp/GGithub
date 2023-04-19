@@ -1,7 +1,7 @@
 package com.grayzlp.ggithub.data.remote.event;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
 import com.grayzlp.ggithub.data.prefs.GithubPrefs;
@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 
 /**
  *  Implementation of the data source use network.

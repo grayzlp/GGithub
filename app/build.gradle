@@ -33,23 +33,23 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
 
 dependencies {
-    implementation "com.android.support.constraint:constraint-layout:${versions.constraintLayout}"
-    implementation "com.android.support:support-v13:${versions.supportLibrary}"
-    implementation "com.android.support:palette-v7:${versions.supportLibrary}"
-    implementation "com.android.support:design:${versions.supportLibrary}"
-    implementation "com.android.support:cardview-v7:${versions.supportLibrary}"
-    implementation "com.android.support:support-dynamic-animation:${versions.supportLibrary}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation "androidx.legacy:legacy-support-v13:${versions.androidx}"
+    implementation "androidx.palette:palette-ktx:${versions.androidx}"
+    implementation "com.google.android.material:material:${versions.material}"
+    implementation "androidx.cardview:cardview:${versions.androidx}"
+    implementation "androidx.dynamicanimation:dynamicanimation:${versions.androidx}"
 
     // ButterKnife
     implementation "com.jakewharton:butterknife:${versions.butterknife}"
@@ -92,4 +92,9 @@ dependencies {
     // Other
     implementation "de.hdodenhof:circleimageview:${versions.circleImageview}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+
+
+    // javaX Annotation
+    implementation "javax.annotation:javax.annotation-api:${versions.javax}"
+    annotationProcessor "javax.annotation:javax.annotation-api:${versions.javax}"
 }

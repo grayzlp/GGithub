@@ -3,8 +3,8 @@ package com.grayzlp.ggithub.core.module.event;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +18,11 @@ import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.core.activity.RepositoryActivity;
 import com.grayzlp.ggithub.core.activity.UserActivity;
 import com.grayzlp.ggithub.data.model.event.BaseEvent;
-import com.grayzlp.ggithub.data.model.event.inheritance.ForkEvent;
 import com.grayzlp.ggithub.data.model.event.inheritance.WatchEvent;
-import com.grayzlp.ggithub.data.model.repo.Repository;
 import com.grayzlp.ggithub.util.LogUtils;
 import com.grayzlp.ggithub.util.glide.GlideApp;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

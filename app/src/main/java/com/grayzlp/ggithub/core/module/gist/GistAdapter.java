@@ -1,8 +1,8 @@
 package com.grayzlp.ggithub.core.module.gist;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

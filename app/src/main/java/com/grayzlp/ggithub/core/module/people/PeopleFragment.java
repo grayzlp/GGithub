@@ -2,12 +2,11 @@ package com.grayzlp.ggithub.core.module.people;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.TransitionRes;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.annotation.TransitionRes;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
@@ -19,11 +18,9 @@ import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.grayzlp.ggithub.R;
 import com.grayzlp.ggithub.data.model.user.SimpleUser;
-import com.grayzlp.ggithub.data.model.user.User;
 import com.grayzlp.ggithub.di.ActivityScoped;
 import com.grayzlp.ggithub.util.LogUtils;
 
